@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 import {
   Menu,
@@ -349,7 +351,7 @@ const Navigation = () => {
               <div className="rounded-lg bg-white/30 p-2 backdrop-blur-sm">
                 <div className="flex items-center">
                   <img
-                    src="https://stallionstainless.com/static/img/home/logo.png"
+                    src="/logo-stallion.png"
                     alt="Stallion"
                     className="h-10 md:h-12"
                   />
