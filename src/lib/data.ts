@@ -276,3 +276,38 @@ export const galleryImages: GalleryImage[] = [
     category: "Luxury",
   },
 ];
+
+export const slides = [
+  {
+    image:
+      "https://images.pexels.com/photos/6312362/pexels-photo-6312362.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    title: "Masterful Craftsmanship",
+    subtitle:
+      "Meticulously crafted stainless steel furniture where durability meets sophistication.",
+  },
+  {
+    image:
+      "https://images.pexels.com/photos/8089083/pexels-photo-8089083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    title: "Timeless Sustainability",
+    subtitle: "Environmentally conscious designs built to last generations.",
+  },
+  {
+    image:
+      "https://images.pexels.com/photos/14613922/pexels-photo-14613922.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    title: "Premium Materials",
+    subtitle:
+      "Only the finest stainless steel and premium finishes for exceptional quality.",
+  },
+  {
+    image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg",
+    title: "Modern Elegance",
+    subtitle:
+      "Contemporary designs that enhance any living space with timeless appeal.",
+  },
+  {
+    image: "https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg",
+    title: "Artisan Excellence",
+    subtitle:
+      "Each piece crafted by skilled artisans with decades of expertise.",
+  },
+];

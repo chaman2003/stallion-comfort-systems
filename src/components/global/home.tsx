@@ -1,8 +1,10 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import Navigation from "../global/navigation";
-import Hero from "../components/Hero";
-import FeaturedProducts from "@/components/FeaturedProducts";
+import Hero from "@/components/global/hero";
+// import FeaturedProducts from "@/components/FeaturedProducts";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, ExternalLink, Eye, Heart, Share2 } from "lucide-react";
 import Link from "next/link";
@@ -23,6 +25,7 @@ import {
   collectionSections,
   featuredProducts,
 } from "@/lib/data";
+import { CollectionImage } from "@/lib/interface";
 
 const Index = () => {
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);

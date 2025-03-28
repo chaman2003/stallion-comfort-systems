@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import React from "react";
 
 type FadeProps = {
-  children: RefObject<null>;
+  children: ReactNode;
   index: number;
   delay?: number;
 };
