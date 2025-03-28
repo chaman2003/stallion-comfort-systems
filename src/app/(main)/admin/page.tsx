@@ -81,7 +81,7 @@ const AdminLogin = () => {
         });
 
         // router.push to admin dashboard
-        router.push("/admin/dashboard");
+        router.push("/dashboard");
       } else {
         throw new Error("Invalid admin credentials");
       }

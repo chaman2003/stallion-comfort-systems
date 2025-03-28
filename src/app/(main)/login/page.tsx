@@ -198,7 +198,7 @@ const Login = () => {
               </div>
               <div className="text-center text-sm">
                 <Link
-                  href="/admin-login"
+                  href="/admin"
                   className="text-[hsl(var(--theme))] hover:underline"
                 >
                   Admin Login
