@@ -40,109 +40,53 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF("/models/sofa1-mod.gltf") as GLTFResult;
   return (
     <group {...props} dispose={null}>
-      <mesh
-        geometry={nodes.Cube.geometry}
-        material={nodes.Cube.material}
-        position={[-1.179, 8.054, -1.913]}
-        scale={7.028}
-      >
+      <mesh geometry={nodes.Cube.geometry} material={nodes.Cube.material}>
         <mesh
           geometry={nodes.BackCushion002.geometry}
           material={materials.Cloth}
-          position={[0.141, -0.902, 0.272]}
-          rotation={[-Math.PI / 2, 1.393, Math.PI / 2]}
-          scale={[0.151, 0.151, 0.139]}
         />
-        <mesh
-          geometry={nodes.CouchBase.geometry}
-          material={materials.Cloth}
-          position={[0.188, -0.971, 0.273]}
-          rotation={[0, 1.571, 0]}
-          scale={0.142}
-        />
-        <mesh
-          geometry={nodes.Cube001.geometry}
-          material={materials.Cloth}
-          position={[0.188, -0.953, 0.117]}
-          rotation={[0, 1.571, 0]}
-          scale={0.142}
-        />
-        <mesh
-          geometry={nodes.Cube002.geometry}
-          material={materials.Cloth}
-          position={[0.188, -0.961, 0.273]}
-          rotation={[0, 1.571, 0]}
-          scale={0.142}
-        />
+        <mesh geometry={nodes.CouchBase.geometry} material={materials.Cloth} />
+        <mesh geometry={nodes.Cube001.geometry} material={materials.Cloth} />
+        <mesh geometry={nodes.Cube002.geometry} material={materials.Cloth} />
         <mesh
           geometry={nodes.BackCushion001.geometry}
           material={materials.Cloth}
-          position={[0.143, -0.902, 0.168]}
-          rotation={[-1.143, 1.359, 1.129]}
-          scale={[0.151, 0.151, 0.139]}
         />
         <mesh
           geometry={nodes.BackCushion.geometry}
           material={materials.Cloth}
-          position={[0.141, -0.902, 0.377]}
-          rotation={[-Math.PI / 2, 1.379, Math.PI / 2]}
-          scale={[0.151, 0.151, 0.139]}
         />
         <mesh
           geometry={nodes.Legs.geometry}
           material={materials.StainlessSteel}
-          position={[0.239, -0.977, 0.125]}
-          rotation={[0, 1.571, 0]}
-          scale={0.142}
         />
         <mesh
           geometry={nodes.SeatCushion.geometry}
           material={materials.Cloth}
-          position={[0.199, -0.953, 0.272]}
-          rotation={[0, 1.571, 0]}
-          scale={0.142}
         />
         <mesh
           geometry={nodes.SeatCushion001.geometry}
           material={materials.Cloth}
-          position={[0.2, -0.953, 0.173]}
-          rotation={[0, 1.571, 0]}
-          scale={0.142}
         />
         <mesh
           geometry={nodes.SeatCushion002.geometry}
           material={materials.Cloth}
-          position={[0.199, -0.953, 0.372]}
-          rotation={[0, 1.571, 0]}
-          scale={0.142}
         />
         <mesh
           geometry={nodes.SideCushion.geometry}
           material={materials.Cloth}
-          position={[0.201, -0.919, 0.13]}
-          rotation={[0, 1.571, 0]}
-          scale={0.142}
         />
         <mesh
           geometry={nodes.SideCushion001.geometry}
           material={materials.Cloth}
-          position={[0.201, -0.919, 0.413]}
-          rotation={[0, 1.571, 0]}
-          scale={0.142}
         />
         <mesh
           geometry={nodes.YellowCushion1.geometry}
           material={materials.WhiteCloth}
-          position={[0.179, -0.871, 0.161]}
-          rotation={[0, 1.571, 0]}
-          scale={0.142}
         />
         <mesh
           geometry={nodes.YellowCushion2.geometry}
           material={materials.WhiteCloth}
-          position={[0.174, -0.87, 0.384]}
-          rotation={[0, 1.571, 0]}
-          scale={0.142}
         />
       </mesh>
     </group>
