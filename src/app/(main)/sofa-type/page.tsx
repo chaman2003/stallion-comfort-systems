@@ -1,3 +1,5 @@
+"use client";
+
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -236,8 +238,8 @@ const SofaType = () => {
                             product.availability === "In Stock"
                               ? "text-green-600"
                               : product.availability === "Out of Stock"
-                              ? "text-red-600"
-                              : "text-amber-600"
+                                ? "text-red-600"
+                                : "text-amber-600"
                           }`}
                         >
                           {product.availability}

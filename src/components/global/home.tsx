@@ -236,6 +236,20 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      <style jsx global>{`
+        @keyframes float {
+          0% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-20px) rotate(5deg);
+          }
+          100% {
+            transform: translateY(0px) rotate(0deg);
+          }
+        }
+      `}</style>
+
       <div
         ref={floatingElementsRef}
         className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
@@ -1305,22 +1319,5 @@ const Index = () => {
     </div>
   );
 };
-
-// Add keyframes for floating animation
-const globalStyle = document.createElement("style");
-globalStyle.innerHTML = `
-  @keyframes float {
-    0% {
-      transform: translateY(0px) rotate(0deg);
-    }
-    50% {
-      transform: translateY(-20px) rotate(5deg);
-    }
-    100% {
-      transform: translateY(0px) rotate(0deg);
-    }
-  }
-`;
-document.head.appendChild(globalStyle);
 
 export default Index;

@@ -27,16 +27,19 @@ type GLTFResult = GLTF & {
     YellowCushion2: THREE.Mesh;
   };
   materials: {
-    Cloth: THREE.MeshStandardMaterial;
-    Cloth: THREE.MeshStandardMaterial;
+    Cloth1: THREE.MeshStandardMaterial;
+    Cloth2: THREE.MeshStandardMaterial;
     StainlessSteel: THREE.MeshStandardMaterial;
     Cloth: THREE.MeshStandardMaterial;
     WhiteCloth: THREE.MeshStandardMaterial;
   };
+  // @ts-ignore
   animations: GLTFAction[];
 };
 
+// @ts-ignore
 export default function Model(props: JSX.IntrinsicElements["group"]) {
+  // @ts-ignore
   const { nodes, materials } = useGLTF("/models/sofa1-mod.gltf") as GLTFResult;
   return (
     <group {...props} dispose={null}>
