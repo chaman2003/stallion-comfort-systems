@@ -1,16 +1,39 @@
 "use client";
 
+import { useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+import { OrbitControls, Environment } from "@react-three/drei";
 import Navigation from "@/components/global/navigation";
 import ProductTable from "@/components/global/productTable";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Heart, Settings, Star } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Heart,
+  Settings,
+  Star,
+  Cuboid,
+  Smartphone,
+  Check,
+  Share2,
+  ZoomIn,
+  ArrowLeft,
+  ArrowRight,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import Model from "../../../../../public/models/Sofa1-mod";
+// import Model from "../../../../public/models/Sofa1-mod";
 
 const Products = () => {
-  const [imageState, setImageState] = React.useState("/assets/1.jpg");
+  const [currentImage, setCurrentImage] = useState(0);
+  const [activeTab, setActiveTab] = useState<"image" | "3d" | "ar">("image");
+  const [selectedColor, setSelectedColor] = useState("Whisper White");
+  const [selectedSize, setSelectedSize] = useState("1 Seater");
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const imageArray = [
     "/assets/1.jpg",
@@ -21,131 +44,490 @@ const Products = () => {
     "/assets/6.jpg",
   ];
 
+  const fabricColors = [
+    { name: "Whisper White", color: "#f5f5f0" },
+    { name: "Charcoal Grey", color: "#36454f" },
+    { name: "Midnight Blue", color: "#145da0" },
+    { name: "Sage Green", color: "#9caf88" },
+  ];
+
+  const handleNextImage = () => {
+    setCurrentImage((prev) => (prev === imageArray.length - 1 ? 0 : prev + 1));
+  };
+
+  const handlePrevImage = () => {
+    setCurrentImage((prev) => (prev === 0 ? imageArray.length - 1 : prev - 1));
+  };
+
+  const handleGetQuote = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setShowSuccess(true);
+      setTimeout(() => {
+        window.location.href = "/contact";
+      }, 1000);
+    }, 1500);
+  };
+
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+  };
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Navigation />
-      <div className="pt-20 md:pt-24">
-        <div className="container px-10 flex justify-between gap-14 items-center mb-8">
-          <div className="py-6 flex items-center">
-            <div className="w-1/4 space-y-4">
-              {imageArray.map((src, index) => (
-                <Image
-                  onClick={() => {
-                    setImageState(src);
-                  }}
-                  src={src}
-                  alt="Images"
-                  className="cursor-pointer border p-2"
-                  width={100}
-                  height={100}
-                />
-              ))}
-            </div>
-            <div className="w-3/4">
-              <Image
-                className="w-full"
-                width={600}
-                height={600}
-                src={imageState}
-                alt="Main Image"
-              />
-            </div>
+
+      {/* Fullscreen Image Modal */}
+      {isFullscreen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={toggleFullscreen}
+        >
+          <button
+            className="absolute top-5 right-5 text-white p-2 rounded-full hover:bg-white/20"
+            onClick={toggleFullscreen}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <div className="relative w-full max-w-6xl max-h-screen">
+            <Image
+              src={imageArray[currentImage]}
+              alt="Product fullscreen view"
+              width={1200}
+              height={800}
+              className="w-full h-auto max-h-[90vh] object-contain"
+            />
+            <button
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 p-2 rounded-full text-white transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevImage();
+              }}
+            >
+              <ArrowLeft size={24} />
+            </button>
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 p-2 rounded-full text-white transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNextImage();
+              }}
+            >
+              <ArrowRight size={24} />
+            </button>
           </div>
-          <div className="py-6">
-            <div className="flex items-center gap-4 justify-between pt-4">
-              <p className="font-semibold w-2/3 text-lg">
-                Laszlo 80" Camel Brown Boucle Apartment Sofa
-              </p>
+        </div>
+      )}
 
-              <Heart className="cursor-pointer" size={24} />
-            </div>
-            <div className="py-1.5">
-              <Link className="text-sm underline font-light" href="#">
-                Company Name
+      <main className="pt-20 lg:pt-28 pb-16">
+        <div className="mx-auto max-w-[1920px] px-4 sm:px-6 lg:px-8">
+          {/* Breadcrumb */}
+          <div className="mb-6 lg:mb-8">
+            <nav className="flex text-sm text-gray-500">
+              <Link href="/" className="hover:text-gold transition-colors">
+                Home
               </Link>
-            </div>
-            <div>
-              <p className="font-semibold text-sm pb-2.5">20,000</p>
-              <div className="flex items-center gap-2 pt-2.5">
-                <Star size={15} fill="black" />
-                <Star size={15} fill="black" />
-                <Star size={15} fill="black" />
-                <Star size={15} fill="black" />
-                <Star className=" shrink-0" size={15} />
-                <p className="underline text-sm font-light cursor-pointer pl-2">
-                  4 Reviews
-                </p>
-                <div className="border-r-2 border-gray-500 size-4"></div>
-                <p className="px-4 text-sm font-light ">ID : ST1234</p>
-              </div>
-              <div className="py-6">
-                <p className="font-semibold">
-                  Fabric{" "}
-                  <span className="text-sm font-light">
-                    Cashwool Fabric in Whisper White
-                  </span>
-                </p>
-              </div>
+              <span className="mx-2">/</span>
+              <Link
+                href="/category/living-room"
+                className="hover:text-gold transition-colors"
+              >
+                Living Room
+              </Link>
+              <span className="mx-2">/</span>
+              <Link
+                href="/category/living-room/sofas"
+                className="hover:text-gold transition-colors"
+              >
+                Sofas
+              </Link>
+              <span className="mx-2">/</span>
+              <span className="text-gray-800 font-medium">Laszlo Sofa</span>
+            </nav>
+          </div>
 
-              <div className="border h-14 mb-6 w-full flex justify-between items-center">
-                <span className="mx-auto w-full p-2 text-center border-r hover:bg-gray-100 cursor-pointer">
-                  1 Seater
-                </span>
-                <span className="mx-auto w-full p-2 text-center hover:bg-gray-100 cursor-pointer">
-                  2 Seater
-                </span>
+          {/* Product Display Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16">
+            {/* Left Column - Product Visuals */}
+            <div className="lg:col-span-8">
+              <div className="bg-white rounded-xl shadow-sm overflow-hidden h-full">
+                <Tabs
+                  value={activeTab}
+                  onValueChange={(value) =>
+                    setActiveTab(value as "image" | "3d" | "ar")
+                  }
+                  className="h-full flex flex-col"
+                >
+                  <div className="border-b border-gray-200">
+                    <TabsList className="w-full h-14">
+                      <TabsTrigger
+                        value="image"
+                        className="flex-1 h-full data-[state=active]:bg-gray-50"
+                      >
+                        <ZoomIn className="h-4 w-4 mr-2" />
+                        <span>Product Images</span>
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="3d"
+                        className="flex-1 h-full data-[state=active]:bg-gray-50"
+                      >
+                        <Cuboid className="h-4 w-4 mr-2" />
+                        <span>3D View</span>
+                      </TabsTrigger>
+                      <TabsTrigger
+                        value="ar"
+                        className="flex-1 h-full data-[state=active]:bg-gray-50"
+                      >
+                        <Smartphone className="h-4 w-4 mr-2" />
+                        <span>AR View</span>
+                      </TabsTrigger>
+                    </TabsList>
+                  </div>
+
+                  {/* Images Tab */}
+                  <TabsContent value="image" className="flex-1 flex flex-col">
+                    <div className="flex flex-col md:flex-row h-full min-h-[600px] lg:min-h-[750px]">
+                      {/* Thumbnails - Modified to center vertically */}
+                      <div className="md:w-20 p-2 flex md:flex-col gap-1 order-2 md:order-1 overflow-x-auto md:overflow-y-auto md:justify-center md:self-center">
+                        {imageArray.map((src, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setCurrentImage(index)}
+                            className={`flex-shrink-0 border-2 transition-colors ${
+                              currentImage === index
+                                ? "border-gold"
+                                : "border-transparent"
+                            }`}
+                          >
+                            <Image
+                              src={src}
+                              alt={`View ${index + 1}`}
+                              width={80}
+                              height={80}
+                              className="object-cover w-[70px] h-[70px]"
+                            />
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Main Image */}
+                      <div className="flex-1 relative order-1 md:order-2">
+                        <div className="relative w-full h-full min-h-[400px]">
+                          <Image
+                            src={imageArray[currentImage]}
+                            alt="Product main view"
+                            fill
+                            sizes="(max-width: 768px) 100vw, 800px"
+                            className="object-contain"
+                            priority
+                          />
+
+                          {/* Navigation Arrows */}
+                          <button
+                            onClick={handlePrevImage}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md hover:bg-white transition-colors z-10"
+                            aria-label="Previous image"
+                          >
+                            <ArrowLeft size={20} />
+                          </button>
+                          <button
+                            onClick={handleNextImage}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md hover:bg-white transition-colors z-10"
+                            aria-label="Next image"
+                          >
+                            <ArrowRight size={20} />
+                          </button>
+
+                          {/* Fullscreen Button */}
+                          <button
+                            onClick={toggleFullscreen}
+                            className="absolute bottom-4 right-4 bg-white/80 p-2 rounded-full shadow-md hover:bg-white transition-colors z-10"
+                            aria-label="View fullscreen"
+                          >
+                            <ZoomIn size={20} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </TabsContent>
+
+                  {/* 3D View Tab */}
+                  <TabsContent
+                    value="3d"
+                    className="flex-1 h-full min-h-[600px] lg:min-h-[750px]"
+                  >
+                    <div className="relative w-full h-full bg-gray-50">
+                      <Canvas
+                        shadows
+                        className="w-full h-full"
+                        camera={{ position: [0, 0, 3], fov: 40 }}
+                      >
+                        <Suspense fallback={null}>
+                          <ambientLight intensity={0.6} />
+                          <spotLight
+                            position={[5, 8, 5]}
+                            angle={0.2}
+                            penumbra={1}
+                            intensity={0.8}
+                            castShadow
+                          />
+                          <directionalLight
+                            position={[-5, 8, 3]}
+                            intensity={0.6}
+                            castShadow
+                          />
+                          <Environment preset="apartment" />
+                          <group
+                            scale={0.8}
+                            position={[0, -0.6, 0]}
+                            rotation={[0, Math.PI / 6, 0]}
+                          >
+                            <Model />
+                          </group>
+                          <OrbitControls
+                            minPolarAngle={Math.PI / 4}
+                            maxPolarAngle={Math.PI * 0.6}
+                            enableZoom={true}
+                            enablePan={false}
+                            minDistance={2}
+                            maxDistance={5}
+                            target={[0, -0.2, 0]}
+                          />
+                        </Suspense>
+                      </Canvas>
+                      <div className="absolute bottom-4 left-4 bg-white px-3 py-1.5 rounded-md text-sm font-medium shadow-md">
+                        Drag to rotate | Scroll to zoom
+                      </div>
+                    </div>
+                  </TabsContent>
+
+                  {/* AR View Tab */}
+                  <TabsContent
+                    value="ar"
+                    className="flex-1 min-h-[600px] lg:min-h-[750px] flex items-center justify-center"
+                  >
+                    <div className="text-center max-w-md p-6">
+                      <Smartphone className="h-16 w-16 text-gray-300 mx-auto mb-6" />
+                      <h3 className="text-xl font-semibold mb-3">
+                        Experience in Your Space
+                      </h3>
+                      <p className="text-gray-500 mb-8">
+                        Scan the QR code with your smartphone camera to view
+                        this product in your own space using augmented reality.
+                      </p>
+                      <div className="bg-white p-6 rounded-lg shadow-md inline-block mb-4">
+                        <Image
+                          src="/assets/qr-placeholder.png"
+                          alt="AR QR Code"
+                          width={180}
+                          height={180}
+                          className="mx-auto"
+                        />
+                      </div>
+                      <p className="text-sm text-gray-400">
+                        Compatible with iOS 12+ and Android 8.0+ devices
+                      </p>
+                    </div>
+                  </TabsContent>
+                </Tabs>
               </div>
-              <div>
-                <div className="overflow-scroll">
-                  <p className="p-4 border bg-gray-50 flex justify-between font-bold w-full">
-                    Fabric
-                    <Settings />
+            </div>
+
+            {/* Right Column - Product Details */}
+            <div className="lg:col-span-4">
+              <div className="sticky top-28 bg-white rounded-xl shadow-sm p-6 lg:p-8">
+                <div className="flex items-center justify-between mb-4">
+                  <h1 className="text-2xl font-bold">
+                    Laszlo Camel Brown Boucle Sofa
+                  </h1>
+                  <button
+                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                    aria-label="Add to favorites"
+                  >
+                    <Heart className="h-5 w-5" />
+                  </button>
+                </div>
+
+                <div className="flex items-baseline gap-2 mb-1">
+                  <span className="text-2xl font-bold">₹20,000</span>
+                  <span className="text-gray-500 text-sm">Inc. all taxes</span>
+                </div>
+
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-1">
+                    <div className="flex">
+                      {[1, 2, 3, 4].map((star) => (
+                        <Star key={star} size={16} fill="#000" />
+                      ))}
+                      <Star size={16} />
+                    </div>
+                    <span className="text-sm ml-1">
+                      <Link
+                        href="#reviews"
+                        className="hover:underline text-gray-600"
+                      >
+                        4 Reviews
+                      </Link>
+                    </span>
+                  </div>
+
+                  <button className="flex items-center text-sm text-gray-500 hover:text-gray-700">
+                    <Share2 className="h-4 w-4 mr-1" />
+                    <span>Share</span>
+                  </button>
+                </div>
+
+                <Separator className="my-6" />
+
+                {/* Product Description */}
+                <div className="mb-6">
+                  <p className="text-gray-700">
+                    Contemporary apartment sofa with premium boucle upholstery
+                    and solid wood frame. Designed for both style and comfort
+                    with high-density foam cushions.
                   </p>
-                  <div className="border  w-full">
-                    <div className="p-4 flex flex-wrap gap-3">
-                      <Image
-                        alt="fabric-1"
-                        className="border"
-                        width={100}
-                        height={100}
-                        src={"/assets/fabric-1.jpg"}
+                </div>
+
+                {/* Fabric Selection */}
+                <div className="mb-8">
+                  <h3 className="font-medium mb-3">Select Fabric</h3>
+                  <p className="text-sm text-gray-600 mb-3">{selectedColor}</p>
+                  <div className="grid grid-cols-4 gap-3">
+                    {fabricColors.map((fabric) => (
+                      <div
+                        key={fabric.name}
+                        onClick={() => setSelectedColor(fabric.name)}
+                        className={`cursor-pointer rounded-md overflow-hidden border-2 transition-all aspect-square ${
+                          selectedColor === fabric.name
+                            ? "border-gold"
+                            : "border-transparent"
+                        }`}
+                        style={{ backgroundColor: fabric.color }}
+                        aria-label={fabric.name}
                       />
-                      <Image
-                        alt="fabric-1"
-                        className="border"
-                        width={100}
-                        height={100}
-                        src={"/assets/fabric-1.jpg"}
-                      />
-                      <Image
-                        alt="fabric-1"
-                        className="border"
-                        width={100}
-                        height={100}
-                        src={"/assets/fabric-1.jpg"}
-                      />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Size Selection */}
+                <div className="mb-8">
+                  <h3 className="font-medium mb-3">Select Size</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      onClick={() => setSelectedSize("1 Seater")}
+                      className={`py-3 border rounded-md transition-colors ${
+                        selectedSize === "1 Seater"
+                          ? "border-gold bg-gold/5 text-gold"
+                          : "border-gray-300 hover:border-gray-400"
+                      }`}
+                    >
+                      1 Seater
+                    </button>
+                    <button
+                      onClick={() => setSelectedSize("2 Seater")}
+                      className={`py-3 border rounded-md transition-colors ${
+                        selectedSize === "2 Seater"
+                          ? "border-gold bg-gold/5 text-gold"
+                          : "border-gray-300 hover:border-gray-400"
+                      }`}
+                    >
+                      2 Seater
+                    </button>
+                  </div>
+                </div>
+
+                {/* Customization Options */}
+                <div className="mb-8">
+                  <div className="bg-gray-50 rounded-md p-4">
+                    <div className="flex justify-between items-center cursor-pointer">
+                      <span className="font-medium">Customization Options</span>
+                      <Settings size={16} />
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="py-6">
+                {/* Call to Action */}
                 <Button
-                  onClick={() => {
-                    window.location.href = "/contact";
-                  }}
-                  className="w-full text-lg cursor-pointer font-semibold py-2"
-                  size={"lg"}
+                  onClick={handleGetQuote}
+                  className={`w-full py-7 text-lg font-semibold bg-gold hover:bg-gold/90 ${
+                    loading || showSuccess ? "pointer-events-none" : ""
+                  }`}
+                  disabled={loading || showSuccess}
                 >
-                  Get a quote
+                  {loading ? (
+                    <span className="flex items-center">
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Processing...
+                    </span>
+                  ) : showSuccess ? (
+                    <span className="flex items-center justify-center">
+                      <Check className="mr-2 h-5 w-5" /> Success!
+                    </span>
+                  ) : (
+                    "Get a Quote"
+                  )}
                 </Button>
+
+                {/* Product Specs Summary */}
+                <div className="mt-8 text-sm text-gray-600 space-y-3">
+                  <div className="flex items-start">
+                    <span className="font-medium w-1/3">Dimensions:</span>
+                    <span>80"W x 36"D x 34"H</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="font-medium w-1/3">Material:</span>
+                    <span>Premium Boucle Fabric, Solid Wood Frame</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="font-medium w-1/3">Delivery:</span>
+                    <span>4-6 weeks</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="font-medium w-1/3">ID:</span>
+                    <span>ST1234</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <ProductTable />
+          {/* Detailed Product Information */}
+          <ProductTable />
+        </div>
+      </main>
     </div>
   );
 };
