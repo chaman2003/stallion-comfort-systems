@@ -121,7 +121,6 @@ const Navigation = () => {
       dropdownTimeoutRef.current = null;
     }
   };
-
   // Navigation data
   const navItems = [
     {
@@ -129,12 +128,14 @@ const Navigation = () => {
       items: [
         { name: "History", path: "/history" },
         { name: "Artisans", path: "/artisans" },
+        { name: "Achievement", path: "/achievement" },
+        { name: "Client Tale", path: "/client-tale" },
       ],
     },
     {
       title: "PROCESS",
       items: [
-        { name: "Craftsmanship", path: "/process" },
+        { name: "Craftsmanship", path: "/craftsmanship" },
         { name: "Materials", path: "/materials" },
       ],
     },
@@ -220,6 +221,7 @@ const Navigation = () => {
     { title: "ABOUT US", path: "/about" },
     { title: "CONTACT US", path: "/contact" },
   ];
+
 
   // Animation variants for dropdown menus
   const dropdownVariants = {
