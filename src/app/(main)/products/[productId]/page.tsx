@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
-import { OrbitControls, Environment } from "@react-three/drei";
+import { OrbitControls, Environment, useGLTF } from "@react-three/drei";
 import Navigation from "@/components/global/navigation";
 import ProductTable from "@/components/global/productTable";
 import { Button } from "@/components/ui/button";
@@ -24,7 +23,12 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import Model from "../../../../../public/models/Sofa1-mod";
+
+// Lazy load the model component to reduce initial page load time
+const Model = lazy(() => import("../../../../../public/models/Sofa1-mod"));
+
+// Model path constant for consistent reference
+const MODEL_PATH = "/models/sofa1-mod.gltf";
 
 const Products = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -35,6 +39,19 @@ const Products = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [modelLoaded, setModelLoaded] = useState(false);
+
+  // Use the preview image for display, fallback to current image when not hovering
+  const displayImage = previewImage !== null ? previewImage : currentImage;
+
+  // Preload the 3D model when component mounts
+  useEffect(() => {
+    // Preload the model immediately when component mounts
+    useGLTF.preload(MODEL_PATH);
+
+    // Mark model as loaded so we know preloading has started
+    setModelLoaded(true);
+  }, []);
 
   const imageArray = [
     "/assets/1.jpg",
@@ -51,9 +68,6 @@ const Products = () => {
     { name: "Midnight Blue", color: "#145da0" },
     { name: "Sage Green", color: "#9caf88" },
   ];
-
-  // Use the preview image for display, fallback to current image when not hovering
-  const displayImage = previewImage !== null ? previewImage : currentImage;
 
   const handleNextImage = () => {
     setCurrentImage((prev) => (prev === imageArray.length - 1 ? 0 : prev + 1));
@@ -78,10 +92,31 @@ const Products = () => {
     setIsFullscreen(!isFullscreen);
   };
 
-  // Reset preview image when tab changes
+  // Reset preview image when tab changes and preload 3D model if switching to 3D tab
   useEffect(() => {
     setPreviewImage(null);
-  }, [activeTab]);
+
+    // If switching to 3D tab, ensure model is preloaded
+    if (activeTab === "3d" && !modelLoaded) {
+      useGLTF.preload(MODEL_PATH);
+      setModelLoaded(true);
+    }
+  }, [activeTab, modelLoaded]);
+
+  // Custom loading fallback for 3D model - Used outside the Canvas
+  const ModelLoadingFallback = () => (
+    <div className="absolute inset-0 flex items-center justify-center bg-gray-50">
+      <div className="text-center">
+        <div className="w-10 h-10 border-4 border-gold border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-sm text-gray-500">Loading 3D model...</p>
+      </div>
+    </div>
+  );
+
+  // Three.js compatible loading component
+  const ThreeLoadingFallback = () => {
+    return null; // This empty return is important - we'll show loader outside the Canvas instead
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -279,12 +314,13 @@ const Products = () => {
                   {/* 3D View Tab - Adjusted height to match image tab */}
                   <TabsContent value="3d" className="aspect-[4/3] w-full">
                     <div className="relative w-full h-full bg-gray-50">
-                      <Canvas
-                        shadows
-                        className="w-full h-full"
-                        camera={{ position: [0, 0, 4.5], fov: 35 }}
-                      >
-                        <Suspense fallback={null}>
+                      {/* Show DOM loading fallback when Suspense is still loading */}
+                      <Suspense fallback={<ModelLoadingFallback />}>
+                        <Canvas
+                          shadows
+                          className="w-full h-full"
+                          camera={{ position: [0, 0, 4.5], fov: 35 }}
+                        >
                           <ambientLight intensity={0.6} />
                           <spotLight
                             position={[5, 8, 5]}
@@ -315,8 +351,8 @@ const Products = () => {
                             maxDistance={6}
                             target={[0, -0.2, 0]}
                           />
-                        </Suspense>
-                      </Canvas>
+                        </Canvas>
+                      </Suspense>
                       <div className="absolute bottom-4 left-4 bg-white px-3 py-1.5 rounded-md text-sm font-medium shadow-md">
                         Drag to rotate | Scroll to zoom
                       </div>

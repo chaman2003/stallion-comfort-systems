@@ -4,9 +4,12 @@ Command: npx gltfjsx@6.5.3 sofa1-mod.gltf -t
 */
 
 import * as THREE from "three";
-import React from "react";
+import React, { memo } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
+
+// Define the model path as a constant for consistent reference
+const MODEL_PATH = "/models/sofa1-mod.gltf";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -38,9 +41,9 @@ type GLTFResult = GLTF & {
 };
 
 // @ts-ignore
-export default function Model(props: JSX.IntrinsicElements["group"]) {
+function Model(props: JSX.IntrinsicElements["group"]) {
   // @ts-ignore
-  const { nodes, materials } = useGLTF("/models/sofa1-mod.gltf") as GLTFResult;
+  const { nodes, materials } = useGLTF(MODEL_PATH) as GLTFResult;
   return (
     <group {...props} dispose={null}>
       <mesh geometry={nodes.Cube.geometry} material={nodes.Cube.material}>
@@ -96,4 +99,8 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/models/sofa1-mod.gltf");
+// Pre-loading the model to ensure it's in cache
+useGLTF.preload(MODEL_PATH);
+
+// Using React.memo to prevent unnecessary re-renders of the model
+export default memo(Model);
