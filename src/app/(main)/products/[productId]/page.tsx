@@ -3,7 +3,6 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, useGLTF } from "@react-three/drei";
-import Navigation from "@/components/global/navigation";
 import ProductTable from "@/components/global/productTable";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -120,8 +119,6 @@ const Products = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navigation />
-
       {/* Fullscreen Image Modal */}
       {isFullscreen && (
         <div
