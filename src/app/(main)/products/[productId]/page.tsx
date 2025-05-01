@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import { OrbitControls, Environment } from "@react-three/drei";
@@ -20,14 +20,15 @@ import {
   ZoomIn,
   ArrowLeft,
   ArrowRight,
+  MessageSquare,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Model from "../../../../../public/models/Sofa1-mod";
-// import Model from "../../../../public/models/Sofa1-mod";
 
 const Products = () => {
   const [currentImage, setCurrentImage] = useState(0);
+  const [previewImage, setPreviewImage] = useState<null | number>(null); // For hover preview
   const [activeTab, setActiveTab] = useState<"image" | "3d" | "ar">("image");
   const [selectedColor, setSelectedColor] = useState("Whisper White");
   const [selectedSize, setSelectedSize] = useState("1 Seater");
@@ -51,6 +52,9 @@ const Products = () => {
     { name: "Sage Green", color: "#9caf88" },
   ];
 
+  // Use the preview image for display, fallback to current image when not hovering
+  const displayImage = previewImage !== null ? previewImage : currentImage;
+
   const handleNextImage = () => {
     setCurrentImage((prev) => (prev === imageArray.length - 1 ? 0 : prev + 1));
   };
@@ -73,6 +77,11 @@ const Products = () => {
   const toggleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
   };
+
+  // Reset preview image when tab changes
+  useEffect(() => {
+    setPreviewImage(null);
+  }, [activeTab]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -134,9 +143,9 @@ const Products = () => {
       )}
 
       <main className="pt-20 lg:pt-28 pb-16">
-        <div className="mx-auto max-w-[1920px] px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           {/* Breadcrumb */}
-          <div className="mb-6 lg:mb-8">
+          <div className="mb-6">
             <nav className="flex text-sm text-gray-500">
               <Link href="/" className="hover:text-gold transition-colors">
                 Home
@@ -160,20 +169,20 @@ const Products = () => {
             </nav>
           </div>
 
-          {/* Product Display Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16">
-            {/* Left Column - Product Visuals */}
-            <div className="lg:col-span-8">
-              <div className="bg-white rounded-xl shadow-sm overflow-hidden h-full">
+          {/* Product Display Section - Optimized fit */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+            {/* Left Column - Product Visuals - Optimized height */}
+            <div className="lg:col-span-7 xl:col-span-8">
+              <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                 <Tabs
                   value={activeTab}
                   onValueChange={(value) =>
                     setActiveTab(value as "image" | "3d" | "ar")
                   }
-                  className="h-full flex flex-col"
+                  className="flex flex-col"
                 >
                   <div className="border-b border-gray-200">
-                    <TabsList className="w-full h-14">
+                    <TabsList className="w-full h-12">
                       <TabsTrigger
                         value="image"
                         className="flex-1 h-full data-[state=active]:bg-gray-50"
@@ -198,41 +207,43 @@ const Products = () => {
                     </TabsList>
                   </div>
 
-                  {/* Images Tab */}
-                  <TabsContent value="image" className="flex-1 flex flex-col">
-                    <div className="flex flex-col md:flex-row h-full min-h-[600px] lg:min-h-[750px]">
-                      {/* Thumbnails - Modified to center vertically */}
-                      <div className="md:w-20 p-2 flex md:flex-col gap-1 order-2 md:order-1 overflow-x-auto md:overflow-y-auto md:justify-center md:self-center">
+                  {/* Images Tab - Optimized fit */}
+                  <TabsContent value="image" className="flex-1">
+                    <div className="flex flex-col md:flex-row">
+                      {/* Thumbnails - Optimized */}
+                      <div className="md:w-20 p-2 flex md:flex-col gap-2 order-2 md:order-1 overflow-x-auto md:overflow-y-auto md:justify-start">
                         {imageArray.map((src, index) => (
                           <button
                             key={index}
                             onClick={() => setCurrentImage(index)}
-                            className={`flex-shrink-0 border-2 transition-colors ${
+                            onMouseEnter={() => setPreviewImage(index)}
+                            onMouseLeave={() => setPreviewImage(null)}
+                            className={`flex-shrink-0 border-2 transition-colors rounded-md ${
                               currentImage === index
-                                ? "border-gold"
-                                : "border-transparent"
+                                ? "border-gold shadow-md"
+                                : "border-transparent hover:border-gray-300"
                             }`}
                           >
                             <Image
                               src={src}
                               alt={`View ${index + 1}`}
-                              width={80}
-                              height={80}
-                              className="object-cover w-[70px] h-[70px]"
+                              width={70}
+                              height={70}
+                              className="object-cover w-[66px] h-[66px]"
                             />
                           </button>
                         ))}
                       </div>
 
-                      {/* Main Image */}
-                      <div className="flex-1 relative order-1 md:order-2">
-                        <div className="relative w-full h-full min-h-[400px]">
+                      {/* Main Image - Optimized fit */}
+                      <div className="flex-1 relative order-1 md:order-2 p-3">
+                        <div className="relative aspect-[4/3] w-full">
                           <Image
-                            src={imageArray[currentImage]}
+                            src={imageArray[displayImage]}
                             alt="Product main view"
                             fill
                             sizes="(max-width: 768px) 100vw, 800px"
-                            className="object-contain"
+                            className="object-contain transition-opacity duration-300"
                             priority
                           />
 
@@ -242,14 +253,14 @@ const Products = () => {
                             className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md hover:bg-white transition-colors z-10"
                             aria-label="Previous image"
                           >
-                            <ArrowLeft size={20} />
+                            <ArrowLeft size={18} />
                           </button>
                           <button
                             onClick={handleNextImage}
                             className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-md hover:bg-white transition-colors z-10"
                             aria-label="Next image"
                           >
-                            <ArrowRight size={20} />
+                            <ArrowRight size={18} />
                           </button>
 
                           {/* Fullscreen Button */}
@@ -258,23 +269,20 @@ const Products = () => {
                             className="absolute bottom-4 right-4 bg-white/80 p-2 rounded-full shadow-md hover:bg-white transition-colors z-10"
                             aria-label="View fullscreen"
                           >
-                            <ZoomIn size={20} />
+                            <ZoomIn size={18} />
                           </button>
                         </div>
                       </div>
                     </div>
                   </TabsContent>
 
-                  {/* 3D View Tab */}
-                  <TabsContent
-                    value="3d"
-                    className="flex-1 h-full min-h-[600px] lg:min-h-[750px]"
-                  >
+                  {/* 3D View Tab - Adjusted height to match image tab */}
+                  <TabsContent value="3d" className="aspect-[4/3] w-full">
                     <div className="relative w-full h-full bg-gray-50">
                       <Canvas
                         shadows
                         className="w-full h-full"
-                        camera={{ position: [0, 0, 3], fov: 40 }}
+                        camera={{ position: [0, 0, 4.5], fov: 35 }}
                       >
                         <Suspense fallback={null}>
                           <ambientLight intensity={0.6} />
@@ -292,7 +300,7 @@ const Products = () => {
                           />
                           <Environment preset="apartment" />
                           <group
-                            scale={0.8}
+                            scale={0.7}
                             position={[0, -0.6, 0]}
                             rotation={[0, Math.PI / 6, 0]}
                           >
@@ -303,8 +311,8 @@ const Products = () => {
                             maxPolarAngle={Math.PI * 0.6}
                             enableZoom={true}
                             enablePan={false}
-                            minDistance={2}
-                            maxDistance={5}
+                            minDistance={3}
+                            maxDistance={6}
                             target={[0, -0.2, 0]}
                           />
                         </Suspense>
@@ -315,28 +323,25 @@ const Products = () => {
                     </div>
                   </TabsContent>
 
-                  {/* AR View Tab */}
+                  {/* AR View Tab - Adjusted height to match image tab */}
                   <TabsContent
                     value="ar"
-                    className="flex-1 min-h-[600px] lg:min-h-[750px] flex items-center justify-center"
+                    className="aspect-[4/3] w-full flex items-center justify-center"
                   >
                     <div className="text-center max-w-md p-6">
-                      <Smartphone className="h-16 w-16 text-gray-300 mx-auto mb-6" />
-                      <h3 className="text-xl font-semibold mb-3">
+                      <Smartphone className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                      <h3 className="text-xl font-semibold mb-2">
                         Experience in Your Space
                       </h3>
-                      <p className="text-gray-500 mb-8">
+                      <p className="text-gray-500 mb-5">
                         Scan the QR code with your smartphone camera to view
                         this product in your own space using augmented reality.
                       </p>
-                      <div className="bg-white p-6 rounded-lg shadow-md inline-block mb-4">
-                        <Image
-                          src="/assets/qr-placeholder.png"
-                          alt="AR QR Code"
-                          width={180}
-                          height={180}
-                          className="mx-auto"
-                        />
+                      <div className="bg-white p-4 rounded-lg shadow-md inline-block mb-3">
+                        {/* Placeholder for QR code - you'll need to generate a real one */}
+                        <div className="w-[150px] h-[150px] bg-gray-200 flex items-center justify-center">
+                          <span className="text-gray-500">QR Code</span>
+                        </div>
                       </div>
                       <p className="text-sm text-gray-400">
                         Compatible with iOS 12+ and Android 8.0+ devices
@@ -348,7 +353,7 @@ const Products = () => {
             </div>
 
             {/* Right Column - Product Details */}
-            <div className="lg:col-span-4">
+            <div className="lg:col-span-5 xl:col-span-4">
               <div className="sticky top-28 bg-white rounded-xl shadow-sm p-6 lg:p-8">
                 <div className="flex items-center justify-between mb-4">
                   <h1 className="text-2xl font-bold">
@@ -414,7 +419,7 @@ const Products = () => {
                         className={`cursor-pointer rounded-md overflow-hidden border-2 transition-all aspect-square ${
                           selectedColor === fabric.name
                             ? "border-gold"
-                            : "border-transparent"
+                            : "border-transparent hover:border-gray-300"
                         }`}
                         style={{ backgroundColor: fabric.color }}
                         aria-label={fabric.name}
@@ -452,57 +457,69 @@ const Products = () => {
 
                 {/* Customization Options */}
                 <div className="mb-8">
-                  <div className="bg-gray-50 rounded-md p-4">
-                    <div className="flex justify-between items-center cursor-pointer">
+                  <div className="bg-gray-50 rounded-md p-4 hover:bg-gray-100 transition-colors cursor-pointer">
+                    <div className="flex justify-between items-center">
                       <span className="font-medium">Customization Options</span>
                       <Settings size={16} />
                     </div>
                   </div>
                 </div>
 
-                {/* Call to Action */}
-                <Button
-                  onClick={handleGetQuote}
-                  className={`w-full py-7 text-lg font-semibold bg-gold hover:bg-gold/90 ${
-                    loading || showSuccess ? "pointer-events-none" : ""
-                  }`}
-                  disabled={loading || showSuccess}
-                >
-                  {loading ? (
-                    <span className="flex items-center">
-                      <svg
-                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      Processing...
-                    </span>
-                  ) : showSuccess ? (
-                    <span className="flex items-center justify-center">
-                      <Check className="mr-2 h-5 w-5" /> Success!
-                    </span>
-                  ) : (
-                    "Get a Quote"
-                  )}
-                </Button>
+                {/* Buttons - Get Quote and Leave Review */}
+                <div className="flex flex-col space-y-4 mb-8">
+                  {/* Get Quote Button - Made more visible */}
+                  <Button
+                    onClick={handleGetQuote}
+                    className={`w-full py-6 text-lg font-semibold bg-gold hover:bg-gold/90 shadow-md transform hover:-translate-y-0.5 transition-all text-black ${
+                      loading || showSuccess ? "pointer-events-none" : ""
+                    }`}
+                    disabled={loading || showSuccess}
+                  >
+                    {loading ? (
+                      <span className="flex items-center">
+                        <svg
+                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        Processing...
+                      </span>
+                    ) : showSuccess ? (
+                      <span className="flex items-center justify-center text-black">
+                        <Check className="mr-2 h-5 w-5" /> Success!
+                      </span>
+                    ) : (
+                      "Get a Quote"
+                    )}
+                  </Button>
+
+                  {/* Leave a Review Button */}
+                  <Button
+                    variant="outline"
+                    className="w-full py-6 text-base flex items-center justify-center gap-2 border-gray-300 hover:bg-gray-50"
+                  >
+                    <MessageSquare className="h-4 w-4" />
+                    Leave a Review
+                  </Button>
+                </div>
 
                 {/* Product Specs Summary */}
-                <div className="mt-8 text-sm text-gray-600 space-y-3">
+                <div className="mt-6 text-sm text-gray-600 space-y-3 bg-gray-50 p-4 rounded-md">
                   <div className="flex items-start">
                     <span className="font-medium w-1/3">Dimensions:</span>
                     <span>80"W x 36"D x 34"H</span>
@@ -525,7 +542,9 @@ const Products = () => {
           </div>
 
           {/* Detailed Product Information */}
-          <ProductTable />
+          <div className="mb-16">
+            <ProductTable />
+          </div>
         </div>
       </main>
     </div>
