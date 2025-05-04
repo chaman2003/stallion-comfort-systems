@@ -11,19 +11,19 @@ const CategoryPage = () => {
       name: "Living Room",
       image: "bg-gray-200",
       slug: "living-room",
-      description: "Elegant furniture solutions for your living spaces"
+      description: "Elegant furniture solutions for your living spaces",
     },
     {
       name: "Dining Room",
       image: "bg-gray-200",
       slug: "dining-room",
-      description: "Premium dining collections for memorable meals"
+      description: "Premium dining collections for memorable meals",
     },
     {
       name: "Bedroom",
       image: "bg-gray-200",
       slug: "bedroom",
-      description: "Luxurious bedroom furniture for peaceful rest"
+      description: "Luxurious bedroom furniture for peaceful rest",
     },
   ];
 
@@ -50,10 +50,13 @@ const CategoryPage = () => {
 
       {/* Page Title */}
       <div className="container mx-auto px-4 mb-12">
-        <h1 className="text-3xl md:text-4xl font-serif mb-4">Product Categories</h1>
+        <h1 className="text-3xl md:text-4xl font-serif mb-4">
+          Product Categories
+        </h1>
         <p className="text-gray-600 max-w-3xl">
-          Explore our premium furniture collections made with the finest stainless steel craftsmanship.
-          Each category features pieces that blend aesthetic appeal with uncompromising quality.
+          Explore our premium furniture collections made with the finest
+          stainless steel craftsmanship. Each category features pieces that
+          blend aesthetic appeal with uncompromising quality.
         </p>
       </div>
 
@@ -71,8 +74,12 @@ const CategoryPage = () => {
             >
               <Link href={`/category/${category.slug}`} className="block">
                 <div className="overflow-hidden rounded-xl shadow-md">
-                  <div className={`h-64 ${category.image} flex items-center justify-center`}>
-                    <span className="text-xl text-gray-500">Image Placeholder</span>
+                  <div
+                    className={`h-64 ${category.image} flex items-center justify-center`}
+                  >
+                    <span className="text-xl text-gray-500">
+                      Image Placeholder
+                    </span>
                   </div>
                   <div className="bg-white p-6">
                     <h2 className="text-2xl font-bold mb-2 group-hover:text-gold transition-colors">

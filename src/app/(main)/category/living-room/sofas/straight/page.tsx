@@ -15,45 +15,65 @@ const StraightSofasPage = () => {
       name: "Milano Stainless Straight Sofa",
       image: "bg-gray-200",
       price: "₹85,000",
-      description: "Contemporary straight sofa with premium stainless steel frame and high-density cushioning",
-      features: ["Brushed stainless steel frame", "Premium leather upholstery", "High-resilience foam cushions"],
+      description:
+        "Contemporary straight sofa with premium stainless steel frame and high-density cushioning",
+      features: [
+        "Brushed stainless steel frame",
+        "Premium leather upholstery",
+        "High-resilience foam cushions",
+      ],
       dimensions: "220cm × 90cm × 85cm",
       availability: "In Stock",
-      colors: ["Camel Brown", "Ivory White", "Charcoal Gray", "Navy Blue"]
+      colors: ["Camel Brown", "Ivory White", "Charcoal Gray", "Navy Blue"],
     },
     {
       id: 2,
       name: "Laszlo Industrial Sofa",
       image: "bg-gray-200",
       price: "₹92,000",
-      description: "Industrial design straight sofa with bold stainless steel elements and durable fabric upholstery",
-      features: ["304 grade stainless steel construction", "Performance fabric upholstery", "No-sag spring system"],
+      description:
+        "Industrial design straight sofa with bold stainless steel elements and durable fabric upholstery",
+      features: [
+        "304 grade stainless steel construction",
+        "Performance fabric upholstery",
+        "No-sag spring system",
+      ],
       dimensions: "240cm × 95cm × 82cm",
       availability: "Made to Order",
-      colors: ["Storm Gray", "Forest Green", "Desert Sand", "Slate Blue"]
+      colors: ["Storm Gray", "Forest Green", "Desert Sand", "Slate Blue"],
     },
     {
       id: 3,
       name: "Vienna Minimalist Sofa",
       image: "bg-gray-200",
       price: "₹78,500",
-      description: "Minimalist straight sofa with sleek lines and premium comfort features",
-      features: ["Mirror-polished stainless steel base", "Premium Italian leather", "Ergonomic backrest design"],
+      description:
+        "Minimalist straight sofa with sleek lines and premium comfort features",
+      features: [
+        "Mirror-polished stainless steel base",
+        "Premium Italian leather",
+        "Ergonomic backrest design",
+      ],
       dimensions: "210cm × 88cm × 80cm",
       availability: "In Stock",
-      colors: ["Classic Black", "Pure White", "Cognac Brown", "Pearl Gray"]
+      colors: ["Classic Black", "Pure White", "Cognac Brown", "Pearl Gray"],
     },
     {
       id: 4,
       name: "Oslo Modern Straight Sofa",
       image: "bg-gray-200",
       price: "₹105,000",
-      description: "Modern Scandinavian-inspired straight sofa with stainless steel accents and plush cushioning",
-      features: ["316 marine-grade stainless elements", "Down-filled back cushions", "Kiln-dried hardwood inner frame"],
+      description:
+        "Modern Scandinavian-inspired straight sofa with stainless steel accents and plush cushioning",
+      features: [
+        "316 marine-grade stainless elements",
+        "Down-filled back cushions",
+        "Kiln-dried hardwood inner frame",
+      ],
       dimensions: "230cm × 92cm × 86cm",
       availability: "Limited Stock",
-      colors: ["Light Oak", "Misty Gray", "Sea Blue", "Blush Pink"]
-    }
+      colors: ["Light Oak", "Misty Gray", "Sea Blue", "Blush Pink"],
+    },
   ];
 
   return (
@@ -70,7 +90,10 @@ const StraightSofasPage = () => {
             <li>
               <div className="flex items-center">
                 <span className="mx-2 text-gray-400">/</span>
-                <Link href="/category" className="text-gray-700 hover:text-gold">
+                <Link
+                  href="/category"
+                  className="text-gray-700 hover:text-gold"
+                >
                   Categories
                 </Link>
               </div>
@@ -78,7 +101,10 @@ const StraightSofasPage = () => {
             <li>
               <div className="flex items-center">
                 <span className="mx-2 text-gray-400">/</span>
-                <Link href="/category/living-room" className="text-gray-700 hover:text-gold">
+                <Link
+                  href="/category/living-room"
+                  className="text-gray-700 hover:text-gold"
+                >
                   Living Room
                 </Link>
               </div>
@@ -86,7 +112,10 @@ const StraightSofasPage = () => {
             <li>
               <div className="flex items-center">
                 <span className="mx-2 text-gray-400">/</span>
-                <Link href="/category/living-room/sofas" className="text-gray-700 hover:text-gold">
+                <Link
+                  href="/category/living-room/sofas"
+                  className="text-gray-700 hover:text-gold"
+                >
                   Sofas
                 </Link>
               </div>
@@ -103,10 +132,14 @@ const StraightSofasPage = () => {
 
       {/* Page Title */}
       <div className="container mx-auto px-4 mb-12">
-        <h1 className="text-3xl md:text-4xl font-serif mb-4">Straight Sofas Collection</h1>
+        <h1 className="text-3xl md:text-4xl font-serif mb-4">
+          Straight Sofas Collection
+        </h1>
         <p className="text-gray-600 max-w-3xl">
-          Our straight sofa collection combines contemporary design with premium stainless steel craftsmanship.
-          These versatile pieces work well in both traditional and modern interiors, offering exceptional comfort and durability.
+          Our straight sofa collection combines contemporary design with premium
+          stainless steel craftsmanship. These versatile pieces work well in
+          both traditional and modern interiors, offering exceptional comfort
+          and durability.
         </p>
       </div>
 
@@ -130,7 +163,9 @@ const StraightSofasPage = () => {
               >
                 {/* Product Image */}
                 <div className="md:w-1/2 relative overflow-hidden">
-                  <div className={`w-full h-full aspect-[4/3] ${product.image} flex items-center justify-center group-hover:scale-105 transition-transform duration-500`}>
+                  <div
+                    className={`w-full h-full aspect-[4/3] ${product.image} flex items-center justify-center group-hover:scale-105 transition-transform duration-500`}
+                  >
                     <span className="text-xl text-gray-500">Product Image</span>
                   </div>
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"></div>
@@ -259,16 +294,19 @@ const StraightSofasPage = () => {
       {/* Filter & Sort Section */}
       <div className="container mx-auto px-4 mb-16">
         <div className="bg-gray-50 p-6 rounded-xl">
-          <h2 className="text-xl font-serif mb-6">Need Help Finding Your Perfect Sofa?</h2>
+          <h2 className="text-xl font-serif mb-6">
+            Need Help Finding Your Perfect Sofa?
+          </h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <h3 className="font-medium mb-3">Guidance From Our Experts</h3>
               <p className="text-gray-600 mb-4">
-                Our furniture specialists can help you find the perfect piece for your space.
-                Schedule a consultation online or visit one of our showrooms.
+                Our furniture specialists can help you find the perfect piece
+                for your space. Schedule a consultation online or visit one of
+                our showrooms.
               </p>
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="inline-block text-gold hover:underline font-medium"
               >
                 Contact a Specialist
@@ -291,11 +329,12 @@ const StraightSofasPage = () => {
             <div>
               <h3 className="font-medium mb-3">Request Fabric Samples</h3>
               <p className="text-gray-600 mb-4">
-                Not sure which upholstery to choose? Order fabric and leather samples to help 
-                make your decision. Available for all our products.
+                Not sure which upholstery to choose? Order fabric and leather
+                samples to help make your decision. Available for all our
+                products.
               </p>
-              <Link 
-                href="/materials" 
+              <Link
+                href="/materials"
                 className="inline-block text-gold hover:underline font-medium"
               >
                 Order Samples
