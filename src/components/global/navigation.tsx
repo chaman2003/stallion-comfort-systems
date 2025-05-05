@@ -129,6 +129,7 @@ const Navigation = () => {
         { name: "History", path: "/history" },
         { name: "Artisans", path: "/artisans" },
         { name: "Achievement", path: "/achievement" },
+        { name: "Collaboration", path: "/collaboration" },
         { name: "Client Tale", path: "/client-tale" },
       ],
     },
