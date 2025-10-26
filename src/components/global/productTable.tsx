@@ -197,36 +197,36 @@ const ProductTable = () => {
                     <tr>
                       <td className="py-2 text-left font-medium">Width</td>
                       <td className="py-2 text-right">210 cm</td>
-                      <td className="py-2 text-right">82.6"</td>
+                      <td className="py-2 text-right">82.6&quot;</td>
                     </tr>
                     <tr className="border-t border-gray-200">
                       <td className="py-2 text-left font-medium">Depth</td>
                       <td className="py-2 text-right">90 cm</td>
-                      <td className="py-2 text-right">35.4"</td>
+                      <td className="py-2 text-right">35.4&quot;</td>
                     </tr>
                     <tr className="border-t border-gray-200">
                       <td className="py-2 text-left font-medium">Height</td>
                       <td className="py-2 text-right">85 cm</td>
-                      <td className="py-2 text-right">33.4"</td>
+                      <td className="py-2 text-right">33.4&quot;</td>
                     </tr>
                     <tr className="border-t border-gray-200">
                       <td className="py-2 text-left font-medium">
                         Seat Height
                       </td>
                       <td className="py-2 text-right">45 cm</td>
-                      <td className="py-2 text-right">17.7"</td>
+                      <td className="py-2 text-right">17.7&quot;</td>
                     </tr>
                     <tr className="border-t border-gray-200">
                       <td className="py-2 text-left font-medium">Seat Depth</td>
                       <td className="py-2 text-right">55 cm</td>
-                      <td className="py-2 text-right">21.6"</td>
+                      <td className="py-2 text-right">21.6&quot;</td>
                     </tr>
                     <tr className="border-t border-gray-200">
                       <td className="py-2 text-left font-medium">
                         Back Height
                       </td>
                       <td className="py-2 text-right">50 cm</td>
-                      <td className="py-2 text-right">19.6"</td>
+                      <td className="py-2 text-right">19.6&quot;</td>
                     </tr>
                   </tbody>
                 </table>

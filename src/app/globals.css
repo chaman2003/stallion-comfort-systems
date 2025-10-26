@@ -96,6 +96,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /* Brand Colors */
+  --theme: 213 100% 12%; /* Dark blue #001F3F */
+  --gold: 45 100% 51%; /* Gold/Amber #FFD700 */
 }
 
 .dark {

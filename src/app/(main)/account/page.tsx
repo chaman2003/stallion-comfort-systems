@@ -91,7 +91,7 @@ const Account = () => {
       // Redirect to login if data is invalid
       router.push("/login");
     }
-  }, [toast]);
+  }, [router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

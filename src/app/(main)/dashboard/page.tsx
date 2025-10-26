@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -37,7 +36,6 @@ import { categories, sofaTypes, subcategories } from "@/lib/data";
 const AdminDashboard = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [chatResponses, setChatResponses] = useState<ChatResponse[]>([]);
-  const [activeTab, setActiveTab] = useState("products");
   const [currentProduct, setCurrentProduct] = useState<Product | null>(null);
   const [currentResponse, setCurrentResponse] = useState<ChatResponse | null>(
     null
@@ -46,7 +44,6 @@ const AdminDashboard = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>("");
   const [selectedSofaType, setSelectedSofaType] = useState<string>("");
-  const [imageFile, setImageFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("all");
@@ -204,7 +201,6 @@ const AdminDashboard = () => {
     const files = e.target.files;
     if (files && files.length > 0) {
       const file = files[0];
-      setImageFile(file);
 
       // Create a preview URL
       const reader = new FileReader();
@@ -310,7 +306,6 @@ const AdminDashboard = () => {
 
       setCurrentProduct(null);
       setPreviewUrl("");
-      setImageFile(null);
       setSelectedCategory("");
       setSelectedSubcategory("");
       setSelectedSofaType("");
@@ -497,7 +492,7 @@ const AdminDashboard = () => {
           </Button>
         </div>
 
-        <Tabs defaultValue="products" onValueChange={setActiveTab}>
+  <Tabs defaultValue="products">
           <TabsList className="mb-6">
             <TabsTrigger value="products">Manage Products</TabsTrigger>
             <TabsTrigger value="responses">Chat Responses</TabsTrigger>
@@ -903,7 +898,6 @@ const AdminDashboard = () => {
                           onClick={() => {
                             setCurrentProduct(null);
                             setPreviewUrl("");
-                            setImageFile(null);
                             setSelectedCategory("");
                             setSelectedSubcategory("");
                             setSelectedSofaType("");

@@ -1,7 +1,5 @@
-import { RefObject, useEffect, useRef } from "react";
+import { useEffect, useRef, ReactNode } from "react";
 import { motion, useAnimation, Variants } from "framer-motion";
-import { ReactNode } from "react";
-import React from "react";
 
 type FadeProps = {
   children: ReactNode;
@@ -45,13 +43,14 @@ export const FadeInWhenVisible = ({
       { threshold: 0.1 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const element = ref.current;
+    if (element) {
+      observer.observe(element);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (element) {
+        observer.unobserve(element);
       }
     };
   }, [controls]);

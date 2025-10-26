@@ -57,7 +57,7 @@ const Contact = () => {
         <h1 className="text-4xl md:text-5xl font-serif mb-6">Contact Us</h1>
         <div className="max-w-4xl">
           <p className="text-xl text-gray-700 mb-8">
-            We're here to help you create the perfect space with our premium
+            We&apos;re here to help you create the perfect space with our premium
             stainless steel furniture. Reach out to us for inquiries, custom
             orders, or to schedule a showroom visit.
           </p>

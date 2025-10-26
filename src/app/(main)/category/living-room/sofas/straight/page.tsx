@@ -157,9 +157,17 @@ const StraightSofasPage = () => {
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
+                animate={{
+                  y: hoveredProduct === index ? -8 : 0,
+                  scale: hoveredProduct === index ? 1.02 : 1,
+                  boxShadow:
+                    hoveredProduct === index
+                      ? "0 24px 45px -20px rgba(0,31,63,0.25)"
+                      : "0 10px 25px -18px rgba(15,23,42,0.25)",
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
                 viewport={{ once: true }}
-                className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row group cursor-pointer h-full"
+                className="bg-white rounded-lg overflow-hidden shadow-lg flex flex-col md:flex-row group cursor-pointer h-full"
               >
                 {/* Product Image */}
                 <div className="md:w-1/2 relative overflow-hidden">

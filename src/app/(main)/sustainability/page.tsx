@@ -69,20 +69,24 @@ const Sustainability = () => {
               ))}
             </div>
           </div>
-
           {/* Right Column: Content and Image */}
-          <div>
-            <div className="mb-10">
-              <h2 className="text-3xl font-serif mb-6">
+          <div className="space-y-10">
+            <p className="italic text-lg text-gray-700">
+              &ldquo;Sustainability isn&apos;t just a policy&mdash;it&apos;s how we build every
+              day at Stallion Comfort Systems.&rdquo;
+            </p>
+
+            <div className="space-y-4">
+              <h2 className="text-3xl font-serif">
                 Sustainable Materials
               </h2>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600">
                 While our primary material is stainless steel – chosen for its
                 exceptional durability and recyclability – we continuously seek
                 to incorporate other sustainable materials across our
                 operations.
               </p>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600">
                 Our stainless steel is sourced from suppliers who meet strict
                 environmental standards, and we prioritize recycled steel
                 whenever possible to reduce our environmental footprint.
@@ -103,17 +107,17 @@ const Sustainability = () => {
               />
             </div>
 
-            <div className="mt-10">
-              <h2 className="text-3xl font-serif mb-6">
+            <div className="space-y-4">
+              <h2 className="text-3xl font-serif">
                 Eco-Friendly Processes
               </h2>
-              <p className="text-gray-600 mb-4">
+              <p className="text-gray-600">
                 Our manufacturing facilities are equipped with energy-efficient
                 technologies and renewable energy sources to minimize our carbon
                 footprint.
               </p>
-              <p className="text-gray-600 mb-4">
-                We've implemented water recycling systems that reduce
+              <p className="text-gray-600">
+                We&apos;ve implemented water recycling systems that reduce
                 consumption by over 50%, and our waste management program
                 ensures that over 90% of production waste is recycled or
                 repurposed.

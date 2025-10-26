@@ -16,12 +16,12 @@ import { toast } from "sonner";
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({
-    id: "",
+    username: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<{
-    id?: string;
+    username?: string;
     password?: string;
     general?: string;
   }>({});
@@ -30,11 +30,11 @@ const AdminLogin = () => {
 
   const validateForm = () => {
     let isValid = true;
-    const newErrors: { id?: string; password?: string } = {};
+    const newErrors: { username?: string; password?: string } = {};
 
-    // ID validation
-    if (!formData.id) {
-      newErrors.id = "Admin ID is required";
+    // Username validation
+    if (!formData.username) {
+      newErrors.username = "Admin username is required";
       isValid = false;
     }
 
@@ -56,7 +56,7 @@ const AdminLogin = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -64,36 +64,43 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      // Check if ID and password match the expected admin credentials
-      if (formData.id === "admin" && formData.password === "scs") {
-        // Save admin token to localStorage
-        localStorage.setItem("adminToken", "admin-token-mock");
-        localStorage.setItem(
-          "admin",
-          JSON.stringify({
-            id: "admin",
-            name: "Administrator",
-          })
-        );
+      // Call admin login API
+      const response = await fetch('/api/auth/admin-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          password: formData.password,
+        }),
+      });
 
-        toast("Admin Login Successful", {
-          description: "Welcome to the admin dashboard",
-        });
+      const data = await response.json();
 
-        // router.push to admin dashboard
-        router.push("/dashboard");
-      } else {
-        throw new Error("Invalid admin credentials");
+      if (!response.ok) {
+        throw new Error(data.error || 'Admin login failed');
       }
+
+      // Save admin token to localStorage
+      localStorage.setItem("adminToken", "admin-token-" + Date.now());
+      localStorage.setItem("admin", JSON.stringify(data.admin));
+
+      toast("Admin Login Successful", {
+        description: "Welcome to the admin dashboard",
+      });
+
+      // router.push to admin dashboard
+      router.push("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
 
       setErrors({
-        general: "Invalid admin credentials. Please try again.",
+        general: error instanceof Error ? error.message : "Invalid admin credentials. Please try again.",
       });
 
       toast("Login Failed", {
-        description: "Invalid admin credentials",
+        description: error instanceof Error ? error.message : "Invalid admin credentials",
       });
     } finally {
       setLoading(false);
@@ -120,18 +127,18 @@ const AdminLogin = () => {
                 )}
 
                 <div className="space-y-2">
-                  <Label htmlFor="id">Admin ID</Label>
+                  <Label htmlFor="username">Admin Username</Label>
                   <Input
-                    id="id"
-                    name="id"
+                    id="username"
+                    name="username"
                     type="text"
                     placeholder="admin"
-                    value={formData.id}
+                    value={formData.username}
                     onChange={handleChange}
-                    className={errors.id ? "border-red-500" : ""}
+                    className={errors.username ? "border-red-500" : ""}
                   />
-                  {errors.id && (
-                    <p className="text-red-500 text-xs mt-1">{errors.id}</p>
+                  {errors.username && (
+                    <p className="text-red-500 text-xs mt-1">{errors.username}</p>
                   )}
                 </div>
 

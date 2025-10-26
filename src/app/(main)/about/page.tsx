@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
 
 const teamMembers = [
   {
@@ -92,7 +90,7 @@ const About = () => {
                 To create furniture that stands the test of time, both in durability and design, while maintaining our commitment to sustainable manufacturing practices.
               </p>
               <p className="text-gray-600">
-                We believe in pushing the boundaries of what's possible with stainless steel, transforming this industrial material into elegant, functional pieces for modern living.
+                We believe in pushing the boundaries of what&apos;s possible with stainless steel, transforming this industrial material into elegant, functional pieces for modern living.
               </p>
               <div className="mt-6 p-4 bg-gray-50 rounded-lg">
                 <h3 className="text-xl font-medium mb-3">Global Impact</h3>

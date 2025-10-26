@@ -3,7 +3,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { type CarouselApi } from "@/components/ui/carousel";
 import { motion } from "framer-motion";
@@ -13,7 +13,6 @@ import { slides } from "@/lib/data";
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [api, setApi] = useState<CarouselApi | null>(null);
-  const isInitialRender = useRef(true);
 
   // Images and content array for synced management
 
@@ -47,24 +46,6 @@ const Hero = () => {
 
     return () => {
       api.off("select", onSelect);
-    };
-  }, [api]);
-
-  // Add keyboard navigation support
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!api) return;
-
-      if (e.key === "ArrowLeft") {
-        scrollPrev();
-      } else if (e.key === "ArrowRight") {
-        scrollNext();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [api]);
 
@@ -117,6 +98,24 @@ const Hero = () => {
     },
     [api]
   );
+
+  // Add keyboard navigation support
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!api) return;
+
+      if (e.key === "ArrowLeft") {
+        scrollPrev();
+      } else if (e.key === "ArrowRight") {
+        scrollNext();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [api, scrollPrev, scrollNext]);
 
   // Animation variants
   const textVariants = {

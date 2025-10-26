@@ -51,7 +51,7 @@ const SofaType = () => {
         <div className="text-center max-w-2xl mx-auto">
           <h1 className="text-3xl font-serif mb-4">Sofa Type Not Found</h1>
           <p className="mb-4">
-            We couldn't find the sofa type "{type || ""}" you're looking for.
+            We couldn&apos;t find the sofa type &ldquo;{type || ""}&rdquo; you&apos;re looking for.
           </p>
           <div className="mb-6 text-left p-4 bg-gray-100 rounded">
             <p className="font-medium mb-2">Debug Information:</p>

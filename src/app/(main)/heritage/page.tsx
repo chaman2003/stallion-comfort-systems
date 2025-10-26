@@ -69,7 +69,7 @@ const Heritage = () => {
           <div className="p-8 bg-gray-50 rounded-lg">
             <h3 className="text-xl font-medium mb-4">Innovation</h3>
             <p className="text-gray-600">
-              We continuously push the boundaries of what's possible in
+              We continuously push the boundaries of what&apos;s possible in
               stainless steel furniture design.
             </p>
           </div>

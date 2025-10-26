@@ -92,7 +92,7 @@ const Showrooms = () => {
         <div className="bg-gray-50 rounded-lg p-8 text-center">
           <h3 className="text-2xl font-serif mb-4">Take a Virtual Tour</h3>
           <p className="text-gray-600 mb-6">
-            Can't visit in person? Experience our showrooms through our
+            Can&apos;t visit in person? Experience our showrooms through our
             immersive virtual tours.
           </p>
           <button className="px-8 py-3 bg-gold text-white rounded-md hover:bg-gold/90 transition-colors">

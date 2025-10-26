@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { RegisterErrors, RegisterFormData, User } from "@/lib/interface";
+import { RegisterErrors, RegisterFormData } from "@/lib/interface";
 
 const Register = () => {
   const [formData, setFormData] = useState<RegisterFormData>({
@@ -74,7 +74,7 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -82,39 +82,27 @@ const Register = () => {
     setLoading(true);
 
     try {
-      // Get existing users from localStorage
-      const existingUsers = JSON.parse(
-        localStorage.getItem("users") || "[]"
-      ) as User[];
+      // Call registration API
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-      // Check if email already exists
-      const emailExists = existingUsers.some(
-        (user) => user.email === formData.email
-      );
+      const data = await response.json();
 
-      if (emailExists) {
-        setErrors({ email: "Email already in use" });
-        toast("Registration Failed", {
-          description: "Email already in use",
-        });
-        setLoading(false);
-        return;
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
       }
 
-      // Create new user
-      const newUser = {
-        id: Math.random().toString(36).substring(2, 9),
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      };
-
-      // Add user to localStorage
-      const updatedUsers = [...existingUsers, newUser];
-      localStorage.setItem("users", JSON.stringify(updatedUsers));
-
       toast("Registration Successful", {
-        description: "Your account has been created",
+        description: "Your account has been created. Please login.",
       });
 
       // Redirect to login page
@@ -123,11 +111,11 @@ const Register = () => {
       console.error("Registration error:", error);
 
       setErrors({
-        general: "Registration failed. Please try again.",
+        general: error instanceof Error ? error.message : "Registration failed. Please try again.",
       });
 
       toast("Registration Failed", {
-        description: "An error occurred. Please try again.",
+        description: error instanceof Error ? error.message : "An error occurred. Please try again.",
       });
     } finally {
       setLoading(false);

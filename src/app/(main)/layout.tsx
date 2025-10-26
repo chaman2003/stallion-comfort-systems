@@ -1,6 +1,7 @@
 "use client";
 
 import Navigation from "@/components/global/navigation";
+import Footer from "@/components/global/footer";
 
 export default function MainLayout({
   children,
@@ -10,7 +11,8 @@ export default function MainLayout({
   return (
     <>
       <Navigation />
-      <main>{children}</main>
+      <main className="min-h-screen">{children}</main>
+      <Footer />
     </>
   );
 }

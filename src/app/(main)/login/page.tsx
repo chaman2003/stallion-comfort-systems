@@ -27,13 +27,6 @@ interface LoginErrors {
   general?: string;
 }
 
-interface User {
-  id: string;
-  email: string;
-  password: string;
-  name: string;
-}
-
 const Login = () => {
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
@@ -81,43 +74,42 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // Get users from localStorage
-      const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
+      // Call login API
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-      // Find user with matching credentials
-      const user = users.find(
-        (u) => u.email === formData.email && u.password === formData.password
-      );
+      const data = await response.json();
 
-      if (user) {
-        // Store user data in localStorage
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            id: user.id,
-            email: user.email,
-            name: user.name,
-          })
-        );
-        localStorage.setItem("token", "user-token-mock");
-
-        toast("Login Successful", {
-          description: "Welcome back!",
-        });
-
-        router.push("/");
-      } else {
-        throw new Error("Invalid email or password");
+      if (!response.ok) {
+        throw new Error(data.error || 'Login failed');
       }
+
+      // Store user data in localStorage
+      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('token', 'user-token-' + data.user._id);
+
+      toast("Login Successful", {
+        description: "Welcome back!",
+      });
+
+      router.push("/");
     } catch (error) {
       console.error("Login error:", error);
 
       setErrors({
-        general: "Invalid email or password. Please try again.",
+        general: error instanceof Error ? error.message : "Invalid email or password. Please try again.",
       });
 
       toast("Login Failed", {
-        description: "Invalid email or password. Please try again.",
+        description: error instanceof Error ? error.message : "Invalid email or password. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -188,7 +180,7 @@ const Login = () => {
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
               <div className="text-center text-sm">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link
                   href="/register"
                   className="text-[hsl(var(--theme))] hover:underline"

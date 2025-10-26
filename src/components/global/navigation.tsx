@@ -10,6 +10,7 @@ import {
   ChevronDown,
   LogOut,
   MessageCircle,
+  ShoppingCart,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
@@ -290,13 +291,6 @@ const Navigation = () => {
     }, 150);
   };
 
-  // Define interface for navigation items
-  interface NavItem {
-    title: string;
-    path?: string;
-    items?: SubItem[];
-  }
-
   interface SubItem {
     name: string;
     path: string;
@@ -572,6 +566,19 @@ const Navigation = () => {
                 {isSearchOpen ? <X size={20} /> : <Search size={20} />}
               </div>
 
+              {/* Shopping Cart icon */}
+              <Link href="/cart">
+                <div
+                  className={`h-9 w-9 flex items-center justify-center rounded-full cursor-pointer transition-all ${
+                    scrolled || !isHomePage
+                      ? "text-[#001F3F] hover:bg-gray-100"
+                      : "text-white hover:bg-white/10"
+                  }`}
+                >
+                  <ShoppingCart size={20} />
+                </div>
+              </Link>
+
               {/* User profile/account */}
               {isLoggedIn ? (
                 <div className="relative" ref={userDropdownRef}>
@@ -599,6 +606,13 @@ const Navigation = () => {
                           onClick={() => setIsUserDropdownOpen(false)}
                         >
                           My Account
+                        </Link>
+                        <Link
+                          href="/cart"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          onClick={() => setIsUserDropdownOpen(false)}
+                        >
+                          Shopping Cart
                         </Link>
                         <Link
                           href="/orders"
@@ -803,6 +817,13 @@ const Navigation = () => {
                         onClick={() => setIsOpen(false)}
                       >
                         My Account
+                      </Link>
+                      <Link
+                        href="/cart"
+                        className="block py-2 text-[#001F3F] hover:underline"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        Shopping Cart
                       </Link>
                       <Link
                         href="/orders"

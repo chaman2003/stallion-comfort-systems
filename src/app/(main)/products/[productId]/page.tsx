@@ -112,11 +112,6 @@ const Products = () => {
     </div>
   );
 
-  // Three.js compatible loading component
-  const ThreeLoadingFallback = () => {
-    return null; // This empty return is important - we'll show loader outside the Canvas instead
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Fullscreen Image Modal */}
@@ -555,7 +550,7 @@ const Products = () => {
                 <div className="mt-6 text-sm text-gray-600 space-y-3 bg-gray-50 p-4 rounded-md">
                   <div className="flex items-start">
                     <span className="font-medium w-1/3">Dimensions:</span>
-                    <span>80"W x 36"D x 34"H</span>
+                    <span>80&quot;W x 36&quot;D x 34&quot;H</span>
                   </div>
                   <div className="flex items-start">
                     <span className="font-medium w-1/3">Material:</span>

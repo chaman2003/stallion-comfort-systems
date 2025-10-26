@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import Navigation from "../global/navigation";
 import Hero from "@/components/global/hero";
-// import FeaturedProducts from "@/components/FeaturedProducts";
-import { Card } from "@/components/ui/card";
-import { ArrowRight, ExternalLink, Eye, Heart, Share2 } from "lucide-react";
+import SignatureHighlights from "@/components/global/signature-highlights";
+import TestimonialsCarousel from "@/components/global/testimonials-carousel";
+import Footer from "@/components/global/footer";
+import { ArrowRight, Eye, Heart } from "lucide-react";
 import Link from "next/link";
 import {
   Dialog,
@@ -43,7 +44,6 @@ const Index = () => {
     null
   );
   const [expandedCollection, setExpandedCollection] = useState(false);
-  const [animationsPaused, setAnimationsPaused] = useState(false);
 
   // Replace these state variables with useRef to reduce rerenders
   const lastHoveredGalleryTimeRef = useRef<number>(0);
@@ -191,13 +191,14 @@ const Index = () => {
       { threshold: 0.25 }
     );
 
-    if (galleryRef.current) {
-      observer.observe(galleryRef.current);
+    const section = galleryRef.current;
+    if (section) {
+      observer.observe(section);
     }
 
     return () => {
-      if (galleryRef.current) {
-        observer.unobserve(galleryRef.current);
+      if (section) {
+        observer.unobserve(section);
       }
     };
   }, [galleryControls]);
@@ -466,6 +467,8 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+  <SignatureHighlights />
 
       {/* Gallery Section */}
       <section ref={galleryRef} className="py-16 md:py-24 bg-zinc-50 relative">
@@ -1145,6 +1148,8 @@ const Index = () => {
         </div>
       </section>
 
+  <TestimonialsCarousel />
+
       {/* Call to Action with floating animation */}
       <section className="py-20 bg-gray-50 overflow-hidden relative">
         {/* Animated decorative elements */}
@@ -1234,88 +1239,7 @@ const Index = () => {
         </motion.div>
       </section>
 
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl font-serif mb-4">NEWSLETTER</h3>
-              <p className="mb-4">
-                Sign up to get information on our latest products and
-                collections.
-              </p>
-              <div className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="px-4 py-2 bg-gray-800 rounded flex-1 focus:outline-none focus:ring-1 focus:ring-gold"
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-2 bg-gold hover:bg-gold/90 rounded transition-colors"
-                >
-                  Sign Up
-                </motion.button>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl font-serif mb-4">CONTACT</h3>
-              <p>Contact us for any inquiries</p>
-              <p className="mt-2">Phone: +1 234 567 890</p>
-              <p>Email: info@stallionstainless.com</p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-xl font-serif mb-4">FOLLOW US</h3>
-              <p className="mb-4">
-                Follow us on social media for unmissable updates!
-              </p>
-              <div className="flex space-x-4">
-                <motion.a
-                  href="#"
-                  className="hover:text-gold transition-colors"
-                  whileHover={{ scale: 1.1, x: 3 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  Facebook
-                </motion.a>
-                <motion.a
-                  href="#"
-                  className="hover:text-gold transition-colors"
-                  whileHover={{ scale: 1.1, x: 3 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  Instagram
-                </motion.a>
-                <motion.a
-                  href="#"
-                  className="hover:text-gold transition-colors"
-                  whileHover={{ scale: 1.1, x: 3 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  Twitter
-                </motion.a>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

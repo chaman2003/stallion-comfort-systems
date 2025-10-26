@@ -2,11 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
-import {
-  OrbitControls,
-  Environment,
-  PerspectiveCamera,
-} from "@react-three/drei";
+import { OrbitControls, Environment } from "@react-three/drei";
 import Model from "../../../../public/models/Sofa1-mod";
 
 const Page = () => {

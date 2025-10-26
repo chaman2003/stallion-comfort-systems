@@ -211,7 +211,7 @@ const SofasPage = () => {
             Custom Sofa Design Service
           </h2>
           <p className="max-w-2xl mx-auto mb-6">
-            Can't find exactly what you're looking for? Our bespoke sofa design
+            Can&apos;t find exactly what you&apos;re looking for? Our bespoke sofa design
             service allows you to create the perfect sofa for your space. Work
             with our designers to select dimensions, materials, and finishes.
           </p>
