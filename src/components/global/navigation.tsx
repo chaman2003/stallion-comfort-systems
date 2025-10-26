@@ -344,24 +344,20 @@ const Navigation = () => {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0">
-              <div className="rounded-lg bg-white/30 p-2 backdrop-blur-sm">
-                <div className="flex items-center">
-                  <img
-                    src="/logo-stallion.png"
-                    alt="Stallion"
-                    className="h-10 md:h-12"
-                  />
+              <div className="rounded-lg bg-white p-3 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="flex items-center gap-2">
                   <span
-                    className="ml-2 text-[hsl(var(--theme))]"
+                    className="text-[#001F3F] font-bold"
                     style={{
                       fontFamily: '"Young Serif", serif',
-                      fontSize: "24px",
-                      fontWeight: 600,
+                      fontSize: "20px",
+                      fontWeight: 700,
                       letterSpacing: "-0.5px",
                     }}
                   >
                     STALLION
                   </span>
+                  <span className="text-[#D4AF37] text-sm font-semibold">Comfort Systems</span>
                 </div>
               </div>
             </Link>

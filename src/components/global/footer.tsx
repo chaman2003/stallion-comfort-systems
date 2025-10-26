@@ -115,24 +115,6 @@ const Footer = () => {
 
         {/* Divider */}
         <div className="border-t border-gray-800 pt-8">
-          {/* Newsletter */}
-          <div className="bg-gray-800 rounded-lg p-6 mb-8">
-            <h3 className="text-lg font-medium mb-4 text-white">Stay Updated</h3>
-            <p className="text-gray-400 mb-4">
-              Subscribe to our newsletter for exclusive updates and offers.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-gray-700 text-white rounded-md focus:ring-2 focus:ring-gold focus:outline-none"
-              />
-              <button className="px-6 py-3 bg-gold text-gray-900 font-medium rounded-md hover:bg-gold/90 transition-colors">
-                Subscribe
-              </button>
-            </div>
-          </div>
-
           {/* Bottom */}
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">

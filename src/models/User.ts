@@ -11,6 +11,7 @@ export interface IUser extends Document {
   state?: string;
   zipCode?: string;
   country?: string;
+  profilePhoto?: string;
   role: 'user' | 'admin' | 'seller';
   createdAt: Date;
   updatedAt: Date;
@@ -64,6 +65,10 @@ const UserSchema: Schema = new Schema(
       type: String,
       trim: true,
       default: 'India',
+    },
+    profilePhoto: {
+      type: String,
+      trim: true,
     },
     role: {
       type: String,
