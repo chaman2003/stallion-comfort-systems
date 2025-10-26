@@ -17,6 +17,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -344,21 +345,24 @@ const Navigation = () => {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0">
-              <div className="rounded-lg bg-white p-3 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <div className="flex items-center gap-2">
-                  <span
-                    className="text-[#001F3F] font-bold"
-                    style={{
-                      fontFamily: '"Young Serif", serif',
-                      fontSize: "20px",
-                      fontWeight: 700,
-                      letterSpacing: "-0.5px",
-                    }}
-                  >
-                    STALLION
-                  </span>
-                  <span className="text-[#D4AF37] text-sm font-semibold">Comfort Systems</span>
-                </div>
+              <div className="flex items-center gap-3 bg-white p-2 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <Image
+                  src="/logo-stallion.png"
+                  alt="Stallion Comfort Systems"
+                  width={40}
+                  height={40}
+                  className="h-10 w-auto"
+                />
+                <span
+                  className="text-[#001F3F] font-bold"
+                  style={{
+                    fontFamily: '"Young Serif", serif',
+                    fontSize: "18px",
+                    fontWeight: 700,
+                  }}
+                >
+                  Stallion
+                </span>
               </div>
             </Link>
 
@@ -597,25 +601,18 @@ const Navigation = () => {
                         className="absolute right-0 mt-2 w-48 py-2 bg-white rounded-md shadow-xl z-50"
                       >
                         <Link
-                          href="/account"
+                          href="/profile"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           onClick={() => setIsUserDropdownOpen(false)}
                         >
-                          My Account
+                          My Profile
                         </Link>
                         <Link
-                          href="/cart"
+                          href="/profile"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           onClick={() => setIsUserDropdownOpen(false)}
                         >
-                          Shopping Cart
-                        </Link>
-                        <Link
-                          href="/orders"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                          onClick={() => setIsUserDropdownOpen(false)}
-                        >
-                          My Orders
+                          Quotations
                         </Link>
                         <button
                           onClick={() => {
@@ -808,25 +805,18 @@ const Navigation = () => {
                         </div>
                       </div>
                       <Link
-                        href="/account"
+                        href="/profile"
                         className="block py-2 text-[#001F3F] hover:underline"
                         onClick={() => setIsOpen(false)}
                       >
-                        My Account
+                        My Profile
                       </Link>
                       <Link
-                        href="/cart"
+                        href="/profile"
                         className="block py-2 text-[#001F3F] hover:underline"
                         onClick={() => setIsOpen(false)}
                       >
-                        Shopping Cart
-                      </Link>
-                      <Link
-                        href="/orders"
-                        className="block py-2 text-[#001F3F] hover:underline"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        My Orders
+                        Quotations
                       </Link>
                       <button
                         onClick={() => {
