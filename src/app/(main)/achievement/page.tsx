@@ -257,29 +257,8 @@ const Achievement = () => {
                     </p>
                     
                     <div className="mt-8">
-                      <h5 className="text-lg font-medium text-gray-800 mb-4">Award Gallery</h5>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="group relative rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1">
-                          <img 
-                            src="/heritage/achievements/jindal-award1.jpg" 
-                            alt="Jindal Stainless Award Certificate" 
-                            className="w-full h-auto object-cover transition-all duration-500 group-hover:scale-105"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                            <p className="text-white px-4 pb-4 text-sm">Award Certificate</p>
-                          </div>
-                        </div>
-                        <div className="group relative rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1">
-                          <img 
-                            src="/heritage/achievements/jindal-award2.jpg" 
-                            alt="Jindal Stainless Award" 
-                            className="w-full h-auto object-cover transition-all duration-500 group-hover:scale-105"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                            <p className="text-white px-4 pb-4 text-sm">Award Presentation</p>
-                          </div>
-                        </div>
-                      </div>
+                      <h5 className="text-lg font-medium text-gray-800 mb-4">Award Details</h5>
+                      <p className="text-gray-600">This recognition from Jindal Stainless Group validates our commitment to excellence and innovation in stainless steel furniture design.</p>
                     </div>
                   </div>
                 </div>

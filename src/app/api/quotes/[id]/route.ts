@@ -1,13 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import clientPromise from '@/lib/mongodb';
 import Quote from '@/models/Quote';
 
+interface RouteParams {
+  params: Promise<{ id: string }>;
+}
+
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: RouteParams
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     await clientPromise; // Ensure MongoDB connection
 
@@ -34,11 +38,11 @@ export async function GET(
 }
 
 export async function PATCH(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: RouteParams
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
 
     await clientPromise; // Ensure MongoDB connection
@@ -71,11 +75,11 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest,
+  { params }: RouteParams
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     await clientPromise; // Ensure MongoDB connection
 
