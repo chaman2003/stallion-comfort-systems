@@ -345,7 +345,7 @@ const Navigation = () => {
         }`}
       >
         <div className="w-full mx-auto px-4">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-16 md:h-25">
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0">
               <motion.div
@@ -361,15 +361,15 @@ const Navigation = () => {
                 <Image
                   src="/logo-stallion.png"
                   alt="Stallion Comfort Systems"
-                  width={120}
-                  height={120}
-                  className="h-16 w-auto"
+                  width={200}
+                  height={200}
+                  className="h-20 w-auto"
                 />
                 <span
                   className="text-[#001F3F] font-bold"
                   style={{
                     fontFamily: '"Young Serif", serif',
-                    fontSize: "26px",
+                    fontSize: "29px",
                     fontWeight: 700,
                   }}
                 >
