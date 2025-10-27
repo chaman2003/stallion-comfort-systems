@@ -344,26 +344,26 @@ const Navigation = () => {
             : "bg-transparent"
         }`}
       >
-        <div className="w-full mx-auto px-4">
-          <div className="flex items-center justify-between h-17 md:h-22">
+        <div className="w-full mx-auto px-3">
+          <div className="flex items-center justify-between h-17 md:h-21">
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0">
               <motion.div
-                className="flex items-center gap-4 rounded-lg transition-all duration-500 h-full"
+                className="flex items-center gap-1 rounded-lg transition-all duration-500 h-full"
                 animate={{
                   backgroundColor: logoBackgroundVisible ? "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0)",
                   boxShadow: logoBackgroundVisible
                     ? "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
                     : "0 0px 0px -5px rgba(0, 0, 0, 0)",
                 }}
-                style={{ padding: "0.35rem 0.5rem" }}
+                style={{ padding: "0.20rem 0.5rem" }}
               >
                 <Image
                   src="/logo-stallion.png"
                   alt="Stallion Comfort Systems"
                   width={200}
                   height={200}
-                  className="h-17 w-auto"
+                  className="h-18 w-auto"
                 />
                 <span
                   className="text-[#001F3F] font-bold"

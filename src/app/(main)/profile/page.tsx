@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -256,9 +257,19 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
+    <motion.div
+      className="container mx-auto px-4 py-8 max-w-7xl"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       {/* User Profile Section */}
-      <Card className="mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <Card className="mb-8">
         <CardHeader>
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-6">
@@ -433,8 +444,14 @@ export default function ProfilePage() {
           )}
         </CardContent>
       </Card>
+      </motion.div>
 
       {/* Your Quotations Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -688,6 +705,7 @@ export default function ProfilePage() {
           )}
         </DialogContent>
       </Dialog>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
