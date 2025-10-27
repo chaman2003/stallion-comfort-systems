@@ -349,27 +349,27 @@ const Navigation = () => {
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0">
               <motion.div
-                className="flex items-center gap-3 rounded-lg transition-all duration-500"
+                className="flex items-center gap-4 rounded-lg transition-all duration-500 h-full"
                 animate={{
                   backgroundColor: logoBackgroundVisible ? "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0)",
                   boxShadow: logoBackgroundVisible
                     ? "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
                     : "0 0px 0px -5px rgba(0, 0, 0, 0)",
                 }}
-                style={{ padding: "0.5rem" }}
+                style={{ padding: "0.75rem 1rem" }}
               >
                 <Image
                   src="/logo-stallion.png"
                   alt="Stallion Comfort Systems"
-                  width={40}
-                  height={40}
-                  className="h-10 w-auto"
+                  width={50}
+                  height={50}
+                  className="h-14 w-auto"
                 />
                 <span
                   className="text-[#001F3F] font-bold"
                   style={{
                     fontFamily: '"Young Serif", serif',
-                    fontSize: "18px",
+                    fontSize: "24px",
                     fontWeight: 700,
                   }}
                 >
