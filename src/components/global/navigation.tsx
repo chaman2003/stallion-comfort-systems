@@ -25,6 +25,7 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
+  const [logoBackgroundVisible, setLogoBackgroundVisible] = useState(true);
 
   // Add user dropdown state
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -76,6 +77,8 @@ const Navigation = () => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
       setScrolled(currentScrollPos > 50);
+      // Hide logo background when scrolled, show when at top
+      setLogoBackgroundVisible(currentScrollPos < 50);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -345,7 +348,16 @@ const Navigation = () => {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0">
-              <div className="flex items-center gap-3 bg-white p-2 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <motion.div
+                className="flex items-center gap-3 rounded-lg transition-all duration-500"
+                animate={{
+                  backgroundColor: logoBackgroundVisible ? "rgba(255, 255, 255, 1)" : "rgba(255, 255, 255, 0)",
+                  boxShadow: logoBackgroundVisible
+                    ? "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                    : "0 0px 0px -5px rgba(0, 0, 0, 0)",
+                }}
+                style={{ padding: "0.5rem" }}
+              >
                 <Image
                   src="/logo-stallion.png"
                   alt="Stallion Comfort Systems"
@@ -363,7 +375,7 @@ const Navigation = () => {
                 >
                   Stallion
                 </span>
-              </div>
+              </motion.div>
             </Link>
 
             {/* Desktop Navigation - single line centered */}
