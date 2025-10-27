@@ -361,15 +361,15 @@ const Navigation = () => {
                 <Image
                   src="/logo-stallion.png"
                   alt="Stallion Comfort Systems"
-                  width={50}
-                  height={50}
-                  className="h-14 w-auto"
+                  width={120}
+                  height={120}
+                  className="h-16 w-auto"
                 />
                 <span
                   className="text-[#001F3F] font-bold"
                   style={{
                     fontFamily: '"Young Serif", serif',
-                    fontSize: "24px",
+                    fontSize: "26px",
                     fontWeight: 700,
                   }}
                 >
