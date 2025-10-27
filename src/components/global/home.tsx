@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import Navigation from "../global/navigation";
 import Hero from "@/components/global/hero";
+import IntroVideo from "@/components/global/intro-video";
 import SignatureHighlights from "@/components/global/signature-highlights";
 import TestimonialsCarousel from "@/components/global/testimonials-carousel";
 import Footer from "@/components/global/footer";
@@ -237,6 +238,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      {/* Intro Video - plays once per session */}
+      <IntroVideo onComplete={() => console.log("Intro video completed")} />
       <style jsx global>{`
         @keyframes float {
           0% {
