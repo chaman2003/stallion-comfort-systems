@@ -345,7 +345,7 @@ const Navigation = () => {
         }`}
       >
         <div className="w-full mx-auto px-4">
-          <div className="flex items-center justify-between h-16 md:h-25">
+          <div className="flex items-center justify-between h-17 md:h-22">
             {/* Logo */}
             <Link href="/" className="flex items-center shrink-0">
               <motion.div
@@ -356,20 +356,20 @@ const Navigation = () => {
                     ? "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
                     : "0 0px 0px -5px rgba(0, 0, 0, 0)",
                 }}
-                style={{ padding: "0.75rem 1rem" }}
+                style={{ padding: "0.35rem 0.5rem" }}
               >
                 <Image
                   src="/logo-stallion.png"
                   alt="Stallion Comfort Systems"
                   width={200}
                   height={200}
-                  className="h-20 w-auto"
+                  className="h-17 w-auto"
                 />
                 <span
                   className="text-[#001F3F] font-bold"
                   style={{
                     fontFamily: '"Young Serif", serif',
-                    fontSize: "29px",
+                    fontSize: "26px",
                     fontWeight: 700,
                   }}
                 >
