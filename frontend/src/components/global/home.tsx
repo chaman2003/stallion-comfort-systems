@@ -627,7 +627,7 @@ const Index = () => {
                               autoHoverIndex === index
                               ? "1px rgba(212, 175, 55, 0.4)"
                               : "0.5px rgba(0,0,0,0.3)",
-                        }}
+                        } as any}
                         transition={{ duration: 0.3 }}
                       >
                         {image.alt}
@@ -655,10 +655,10 @@ const Index = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* Collections Section */}
-      <section className="py-20 bg-white relative">
+      < section className="py-20 bg-white relative" >
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0 }}
@@ -1149,7 +1149,7 @@ const Index = () => {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section >
 
       <TestimonialsCarousel />
 
@@ -1243,7 +1243,7 @@ const Index = () => {
       </section>
 
       <Footer />
-    </div>
+    </div >
   );
 };
 

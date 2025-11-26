@@ -29,6 +29,24 @@ const Navigation = () => {
 
   // Add user dropdown state
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [productNavItems, setProductNavItems] = useState<any[]>([]);
+
+  // Fetch product hierarchy
+  useEffect(() => {
+    const fetchHierarchy = async () => {
+      try {
+        const response = await fetch('/api/products/hierarchy');
+        if (response.ok) {
+          const data = await response.json();
+          setProductNavItems(data);
+        }
+      } catch (error) {
+        console.error("Error fetching product hierarchy:", error);
+      }
+    };
+
+    fetchHierarchy();
+  }, []);
 
   // New dropdown state management
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
@@ -146,81 +164,7 @@ const Navigation = () => {
     },
     {
       title: "PRODUCTS",
-      items: [
-        {
-          name: "Living Room",
-          path: "/category/living-room",
-          submenu: [
-            {
-              name: "Sofas",
-              path: "/category/living-room/sofas",
-              submenu: [
-                {
-                  name: "Straight Sofas",
-                  path: "/category/living-room/sofas/straight",
-                },
-                {
-                  name: "Corner Sofas",
-                  path: "/category/living-room/sofas/corner",
-                },
-                {
-                  name: "Curved Sofas",
-                  path: "/category/living-room/sofas/curved",
-                },
-                {
-                  name: "U-Shaped Sofas",
-                  path: "/category/living-room/sofas/u-shaped",
-                },
-                {
-                  name: "Recliner Sofas",
-                  path: "/category/living-room/sofas/recliner",
-                },
-                {
-                  name: "Sofa Cum Bed",
-                  path: "/category/living-room/sofas/sofa-cum-bed",
-                },
-              ],
-            },
-            { name: "Pouffe", path: "/category/living-room/pouffe" },
-            {
-              name: "Coffee Table",
-              path: "/category/living-room/coffee-table",
-              submenu: [
-                {
-                  name: "Round Table",
-                  path: "/category/living-room/coffee-table/round-table",
-                },
-                {
-                  name: "Square Table",
-                  path: "/category/living-room/coffee-table/square-table",
-                },
-                {
-                  name: "Rectanglular Table",
-                  path: "/category/living-room/coffee-table/rectanglular-table",
-                },
-                {
-                  name: "Shaped Table",
-                  path: "/category/living-room/coffee-table/shaped-table",
-                },
-                {
-                  name: "Nesting Table",
-                  path: "/category/living-room/coffee-table/nesting-table",
-                },
-              ],
-            },
-            {
-              name: "Console Table",
-              path: "/category/living-room/console-table",
-            },
-            {
-              name: "Corner Table",
-              path: "/category/living-room/corner-table",
-            },
-          ],
-        },
-        { name: "Dining Room", path: "/category/dining-room" },
-        { name: "Bedroom", path: "/category/bedroom" },
-      ],
+      items: productNavItems,
     },
     { title: "SUSTAINABILITY", path: "/sustainability" },
     { title: "ABOUT US", path: "/about" },
@@ -301,6 +245,12 @@ const Navigation = () => {
     submenu?: SubItem[];
   }
 
+  interface NavItem {
+    title: string;
+    path?: string;
+    items?: SubItem[];
+  }
+
   // Render mobile submenu recursively
   const renderMobileSubmenu = (items: SubItem[], level = 0) => {
     if (!items) return null;
@@ -339,8 +289,8 @@ const Navigation = () => {
         id="main-navigation"
         ref={navRef}
         className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${scrolled || !isHomePage
-            ? "bg-white/95 backdrop-blur-md shadow-lg"
-            : "bg-transparent"
+          ? "bg-white/95 backdrop-blur-md shadow-lg"
+          : "bg-transparent"
           }`}
       >
         <div className="w-full mx-auto px-3">
@@ -391,8 +341,8 @@ const Navigation = () => {
                       <Link
                         href={item.path}
                         className={`font-medium tracking-wide transition-all duration-300 py-2 px-2 flex items-center ${scrolled || !isHomePage
-                            ? "text-[#001F3F]"
-                            : "text-white"
+                          ? "text-[#001F3F]"
+                          : "text-white"
                           } hover:bg-white/10 rounded-md`}
                       >
                         {item.title}
@@ -400,8 +350,8 @@ const Navigation = () => {
                     ) : (
                       <div
                         className={`font-medium tracking-wide transition-all duration-300 py-2 px-2 flex items-center cursor-pointer ${scrolled || !isHomePage
-                            ? "text-[#001F3F]"
-                            : "text-white"
+                          ? "text-[#001F3F]"
+                          : "text-white"
                           } ${openDropdown === index
                             ? "bg-white/10 backdrop-blur-sm rounded-t-md border-b-2 border-white/40"
                             : "hover:bg-white/5 rounded-md"
@@ -427,8 +377,8 @@ const Navigation = () => {
                               <div
                                 key={`dropdown-item-${subIdx}`}
                                 className={`relative ${subIdx !== item.items.length - 1
-                                    ? "border-b border-gray-200"
-                                    : ""
+                                  ? "border-b border-gray-200"
+                                  : ""
                                   }`}
                                 onMouseEnter={() => handleSubmenuHover(subIdx)}
                                 onMouseLeave={handleMenuLeave}
@@ -460,13 +410,13 @@ const Navigation = () => {
                                       >
                                         <div className="bg-white shadow-lg rounded-md py-2 border border-gray-200/50">
                                           {subItem.submenu.map(
-                                            (thirdItem, thirdIdx) => (
+                                            (thirdItem: SubItem, thirdIdx: number) => (
                                               <div
                                                 key={`submenu-item-${thirdIdx}`}
                                                 className={`relative ${thirdIdx !==
-                                                    subItem.submenu.length - 1
-                                                    ? "border-b border-gray-200"
-                                                    : ""
+                                                  subItem.submenu.length - 1
+                                                  ? "border-b border-gray-200"
+                                                  : ""
                                                   }`}
                                                 onMouseEnter={() =>
                                                   handleThirdLevelHover(
@@ -506,20 +456,18 @@ const Navigation = () => {
                                                         }
                                                       >
                                                         <div className="bg-white shadow-lg rounded-md py-2 border border-gray-200/50">
-                                                          {thirdItem.submenu.map(
+                                                          {thirdItem.submenu?.map(
                                                             (
-                                                              fourthItem,
-                                                              fourthIdx
+                                                              fourthItem: SubItem,
+                                                              fourthIdx: number
                                                             ) => (
                                                               <div
                                                                 key={`third-level-${fourthIdx}`}
                                                                 className={`${fourthIdx !==
-                                                                    thirdItem
-                                                                      .submenu
-                                                                      .length -
-                                                                    1
-                                                                    ? "border-b border-gray-200"
-                                                                    : ""
+                                                                  (thirdItem.submenu?.length || 0) -
+                                                                  1
+                                                                  ? "border-b border-gray-200"
+                                                                  : ""
                                                                   }`}
                                                               >
                                                                 <Link
@@ -563,8 +511,8 @@ const Navigation = () => {
               <div
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
                 className={`h-9 w-9 flex items-center justify-center rounded-full cursor-pointer transition-all ${scrolled || !isHomePage || isSearchOpen
-                    ? "text-[#001F3F] hover:bg-gray-100"
-                    : "text-white hover:bg-white/10"
+                  ? "text-[#001F3F] hover:bg-gray-100"
+                  : "text-white hover:bg-white/10"
                   }`}
               >
                 {isSearchOpen ? <X size={20} /> : <Search size={20} />}
@@ -574,8 +522,8 @@ const Navigation = () => {
               <Link href="/cart">
                 <div
                   className={`h-9 w-9 flex items-center justify-center rounded-full cursor-pointer transition-all ${scrolled || !isHomePage
-                      ? "text-[#001F3F] hover:bg-gray-100"
-                      : "text-white hover:bg-white/10"
+                    ? "text-[#001F3F] hover:bg-gray-100"
+                    : "text-white hover:bg-white/10"
                     }`}
                 >
                   <ShoppingCart size={20} />
@@ -646,8 +594,8 @@ const Navigation = () => {
                   <Button
                     variant="ghost"
                     className={`rounded-full px-4 ${scrolled || !isHomePage
-                        ? "text-[#001F3F] hover:bg-gray-100"
-                        : "text-white hover:bg-white/10"
+                      ? "text-[#001F3F] hover:bg-gray-100"
+                      : "text-white hover:bg-white/10"
                       }`}
                   >
                     <User size={18} className="mr-2" />

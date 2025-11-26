@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const teamMembers = [
   {
@@ -59,14 +60,15 @@ const About = () => {
             </p>
           </div>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {teamMembers.map((member, index) => (
             <div key={index} className="bg-white rounded-lg overflow-hidden shadow-md flex md:flex-row flex-col">
-              <div className="md:w-1/2 h-64 md:h-auto overflow-hidden">
-                <img 
-                  src={member.image} 
+              <div className="md:w-1/2 h-64 md:h-auto overflow-hidden relative">
+                <Image
+                  src={member.image}
                   alt={member.name}
+                  width={600}
+                  height={400}
                   className="w-full h-full object-cover"
                 />
               </div>
