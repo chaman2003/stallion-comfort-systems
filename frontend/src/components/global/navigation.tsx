@@ -676,13 +676,7 @@ const Navigation = () => {
                     Popular Searches
                   </h3>
                   <div className="flex flex-wrap gap-2 mt-2">
-                    {[
-                      "Sofas",
-                      "Dining Sets",
-                      "Beds",
-                      "Wardrobes",
-                      "Coffee Tables",
-                    {Array.isArray(["Sofas","Dining Sets","Beds","Wardrobes","Coffee Tables"]) && ["Sofas","Dining Sets","Beds","Wardrobes","Coffee Tables"].map((term) => (
+                    {["Sofas", "Dining Sets", "Beds", "Wardrobes", "Coffee Tables"].map((term) => (
                       <Link
                         key={term}
                         href={`/search?q=${term.toLowerCase()}`}
