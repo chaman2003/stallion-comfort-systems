@@ -63,17 +63,19 @@ const Navigation = () => {
     const fetchHierarchy = async () => {
       try {
         const response = await fetch('/api/products/hierarchy');
-        if (response.ok) {
-            const data = await response.json();
-            if (Array.isArray(data) && data.length > 0) {
-              setProductNavItems(data);
-            } else {
-              setProductNavItems([]);
-            }
+        if (!response.ok) {
+          throw new Error(`Hierarchy request failed with ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setProductNavItems(data);
+        } else {
+          setProductNavItems(fallbackProductData);
         }
       } catch (error) {
         console.error("Error fetching product hierarchy:", error);
-        // Keep using fallback data
+        setProductNavItems(fallbackProductData);
       }
     };
 
