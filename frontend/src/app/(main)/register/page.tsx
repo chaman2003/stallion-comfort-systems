@@ -83,7 +83,7 @@ const Register = () => {
 
     try {
       // Call registration API
-      const response = await fetch('/api/auth/register', {
+      const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const Register = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Registration failed');
+        throw new Error(data.message || 'Registration failed');
       }
 
       toast("Registration Successful", {
