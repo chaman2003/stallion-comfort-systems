@@ -1,52 +1,55 @@
-import { NextResponse } from 'next/server';
-import clientPromise from '@/lib/mongodb';
-import bcrypt from 'bcryptjs';
+import { NextResponse } from "next/server";
+import connectDB from "@/lib/db";
+import User from "@/lib/models/User";
+import bcrypt from "bcryptjs";
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const { email, password } = await request.json();
+    await connectDB();
+    const { email, password } = await req.json();
 
     if (!email || !password) {
       return NextResponse.json(
-        { error: 'Email and password are required' },
+        { message: "Please provide email and password" },
         { status: 400 }
       );
     }
 
-    const client = await clientPromise;
-    const db = client.db('stallion');
-    const usersCollection = db.collection('users');
-
-    // Find user
-    const user = await usersCollection.findOne({ email });
-    if (!user) {
+    const user = await User.findOne({ email }).select("+password");
+    if (!user || !user.password) {
       return NextResponse.json(
-        { error: 'Invalid credentials' },
+        { message: "Invalid credentials" },
         { status: 401 }
       );
     }
 
-    // Verify password
-    const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword) {
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
       return NextResponse.json(
-        { error: 'Invalid credentials' },
+        { message: "Invalid credentials" },
         { status: 401 }
       );
     }
 
-    // Return user data (excluding password)
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password: _, ...userWithoutPassword } = user;
-    
-    return NextResponse.json({
-      message: 'Login successful',
-      user: userWithoutPassword,
-    });
-  } catch (error) {
-    console.error('Login error:', error);
+    // In a real app, you would generate a JWT token here
+    // For now, we'll just return the user info
+
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        message: "Login successful",
+        user: {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        },
+        token: "dummy-token-for-now", // Replace with real JWT generation
+      },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    return NextResponse.json(
+      { message: error.message || "Internal Server Error" },
       { status: 500 }
     );
   }

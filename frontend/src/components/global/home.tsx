@@ -25,11 +25,13 @@ import {
   galleryImages,
   collectionImages,
   collectionSections,
-  featuredProducts,
+  featuredProducts as initialFeaturedProducts,
 } from "@/lib/data";
-import { CollectionImage } from "@/lib/interface";
+import { CollectionImage, Product } from "@/lib/interface";
+import axios from "axios";
 
 const Index = () => {
+  const [featuredProducts, setFeaturedProducts] = useState<any[]>(initialFeaturedProducts);
   const [hoveredProduct, setHoveredProduct] = useState<number | null>(null);
   const [hoveredGalleryItem, setHoveredGalleryItem] = useState<number | null>(
     null
@@ -61,6 +63,30 @@ const Index = () => {
   const [addedToCart, setAddedToCart] = useState(false);
   const [addingToWishlist, setAddingToWishlist] = useState(false);
   const [addedToWishlist, setAddedToWishlist] = useState(false);
+
+  useEffect(() => {
+    const fetchFeaturedProducts = async () => {
+      try {
+        const response = await axios.get("/api/products?featured=true");
+        if (response.data.products && response.data.products.length > 0) {
+          // Map API products to the format expected by the component
+          const mappedProducts = response.data.products.map((p: any) => ({
+            id: p._id,
+            name: p.name,
+            price: typeof p.price === 'number' ? `₹${p.price.toLocaleString()}` : p.price,
+            image: p.image,
+            category: p.category,
+            link: `/products/${p._id}`, // Assuming we have a product page
+          }));
+          setFeaturedProducts(mappedProducts);
+        }
+      } catch (error) {
+        console.error("Error fetching featured products:", error);
+      }
+    };
+
+    fetchFeaturedProducts();
+  }, []);
 
   const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 20 },
