@@ -64,10 +64,12 @@ const Navigation = () => {
       try {
         const response = await fetch('/api/products/hierarchy');
         if (response.ok) {
-          const data = await response.json();
-          if (data && data.length > 0) {
-            setProductNavItems(data);
-          }
+            const data = await response.json();
+            if (Array.isArray(data) && data.length > 0) {
+              setProductNavItems(data);
+            } else {
+              setProductNavItems([]);
+            }
         }
       } catch (error) {
         console.error("Error fetching product hierarchy:", error);
@@ -360,7 +362,7 @@ const Navigation = () => {
             {/* Desktop Navigation - single line centered */}
             <div className="hidden lg:flex items-center justify-center flex-grow">
               <div className="flex items-center justify-center space-x-3">
-                {navItems.map((item, index) => (
+                {Array.isArray(navItems) && navItems.map((item, index) => (
                   <div
                     key={`nav-item-${index}`}
                     className="relative"
