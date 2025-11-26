@@ -589,7 +589,7 @@ const Navigation = () => {
                           My Profile
                         </Link>
                         <Link
-                          href="/profile"
+                          href="/quotations"
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           onClick={() => setIsUserDropdownOpen(false)}
                         >
@@ -801,7 +801,7 @@ const Navigation = () => {
                         My Profile
                       </Link>
                       <Link
-                        href="/profile"
+                        href="/quotations"
                         className="block py-2 text-[#001F3F] hover:underline"
                         onClick={() => setIsOpen(false)}
                       >

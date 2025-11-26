@@ -16,15 +16,6 @@ const nextConfig: NextConfig = {
 
   // Disable static generation for faster dev server startup
   staticPageGenerationTimeout: 30,
-
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:5000/api/:path*',
-      },
-    ];
-  },
 };
 
 export default nextConfig;
