@@ -4,7 +4,7 @@ if (!process.env.MONGODB_URI) {
   throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
 }
 
-const uri = process.env.MONGODB_URI || "mongodb+srv://test:123@stallion.d781z8t.mongodb.net/?appName=stallion";
+const uri = process.env.MONGODB_URI || "mongodb+srv://root:123@stallion.infrtax.mongodb.net/?appName=stallion";
 const options = {};
 
 let client: MongoClient;
