@@ -29,7 +29,34 @@ const Navigation = () => {
 
   // Add user dropdown state
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
-  const [productNavItems, setProductNavItems] = useState<any[]>([]);
+  // Static fallback product data
+  const fallbackProductData = [
+    {
+      name: "Living Room",
+      path: "/category/living-room",
+      submenu: [
+        {
+          name: "Sofas",
+          path: "/category/living-room/sofas",
+          submenu: [
+            { name: "Straight Sofa", path: "/category/living-room/sofas/straight" },
+            { name: "L-Shape Sofa", path: "/sofa-type" },
+            { name: "U-Shape Sofa", path: "/sofa-type" },
+          ]
+        },
+        {
+          name: "Coffee Tables",
+          path: "/category/living-room/coffee-table",
+          submenu: [
+            { name: "Round Coffee Table", path: "/category/living-room/coffee-table/round" },
+            { name: "Square Coffee Table", path: "/category/living-room/coffee-table/square" },
+          ]
+        }
+      ]
+    }
+  ];
+
+  const [productNavItems, setProductNavItems] = useState<any[]>(fallbackProductData);
 
   // Fetch product hierarchy
   useEffect(() => {
@@ -38,10 +65,13 @@ const Navigation = () => {
         const response = await fetch('/api/products/hierarchy');
         if (response.ok) {
           const data = await response.json();
-          setProductNavItems(data);
+          if (data && data.length > 0) {
+            setProductNavItems(data);
+          }
         }
       } catch (error) {
         console.error("Error fetching product hierarchy:", error);
+        // Keep using fallback data
       }
     };
 
