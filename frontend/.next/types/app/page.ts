@@ -1,4 +1,4 @@
-// File: C:\Users\chama\OneDrive\Desktop\backup\stallion-comfort-systems\old-stallion-comfort-systems\frontend\src\app\page.tsx
+// File: C:\Users\chama\OneDrive\Desktop\backup\stallion-comfort-systems\stallion-comfort-systems\frontend\src\app\page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

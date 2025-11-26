@@ -627,7 +627,7 @@ const Index = () => {
                             autoHoverIndex === index
                               ? "1px rgba(212, 175, 55, 0.4)"
                               : "0.5px rgba(0,0,0,0.3)",
-                        }}
+                        } as any}
                         transition={{ duration: 0.3 }}
                       >
                         {image.alt}
