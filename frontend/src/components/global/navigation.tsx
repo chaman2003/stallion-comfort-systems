@@ -16,7 +16,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import Image from "next/image";
 
 const Navigation = () => {
@@ -229,7 +229,7 @@ const Navigation = () => {
 
 
   // Animation variants for dropdown menus
-  const dropdownVariants = {
+  const dropdownVariants: Variants = {
     hidden: {
       opacity: 0,
       y: -5,
