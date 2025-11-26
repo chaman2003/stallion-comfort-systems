@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 
 export interface ISeller extends Document {
-  _id: string;
+  _id: mongoose.Types.ObjectId;
   userId: mongoose.Types.ObjectId; // Links to User model
   businessName: string;
   businessType?: string;
