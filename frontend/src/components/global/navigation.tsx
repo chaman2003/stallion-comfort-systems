@@ -311,7 +311,7 @@ const Navigation = () => {
           </div>
         )}
       </div>
-    ));
+    )) : null;
   };
 
   return (
