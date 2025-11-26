@@ -19,7 +19,7 @@ export interface ISellerResponse {
 }
 
 export interface IQuote extends Document {
-  _id: string;
+  _id: mongoose.Types.ObjectId;
   quoteId: string; // Human-readable quote ID (e.g., "QT-2025-0001")
   userId: mongoose.Types.ObjectId;
   items: IQuoteItem[];
