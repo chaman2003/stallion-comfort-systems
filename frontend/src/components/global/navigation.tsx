@@ -62,19 +62,29 @@ const Navigation = () => {
   useEffect(() => {
     const fetchHierarchy = async () => {
       try {
+        console.log("[Navigation] Fetching product hierarchy...");
         const response = await fetch('/api/products/hierarchy');
+        console.log(`[Navigation] Hierarchy response status: ${response.status}`);
+        
         if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          console.error(`[Navigation] Hierarchy request failed:`, errorData);
           throw new Error(`Hierarchy request failed with ${response.status}`);
         }
 
         const data = await response.json();
+        console.log(`[Navigation] Hierarchy data received:`, data);
+        
         if (Array.isArray(data) && data.length > 0) {
+          console.log(`[Navigation] Setting ${data.length} product nav items`);
           setProductNavItems(data);
         } else {
+          console.warn("[Navigation] Hierarchy returned empty or non-array, using fallback");
           setProductNavItems(fallbackProductData);
         }
       } catch (error) {
-        console.error("Error fetching product hierarchy:", error);
+        console.error("[Navigation] Error fetching product hierarchy:", error);
+        console.log("[Navigation] Using fallback product data");
         setProductNavItems(fallbackProductData);
       }
     };
@@ -410,7 +420,7 @@ const Navigation = () => {
                             {Array.isArray(item.items) && item.items.map((subItem, subIdx) => (
                               <div
                                 key={`dropdown-item-${subIdx}`}
-                                className={`relative ${subIdx !== item.items.length - 1
+                                className={`relative ${subIdx !== (Array.isArray(item.items) ? item.items.length : 0) - 1
                                   ? "border-b border-gray-200"
                                   : ""
                                   }`}
@@ -448,7 +458,7 @@ const Navigation = () => {
                                               <div
                                                 key={`submenu-item-${thirdIdx}`}
                                                 className={`relative ${thirdIdx !==
-                                                  subItem.submenu.length - 1
+                                                  (Array.isArray(subItem.submenu) ? subItem.submenu.length : 0) - 1
                                                   ? "border-b border-gray-200"
                                                   : ""
                                                   }`}

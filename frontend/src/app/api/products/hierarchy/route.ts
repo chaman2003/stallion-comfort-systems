@@ -16,12 +16,15 @@ const toTitleCase = (value?: string | null) => {
 
 export async function GET() {
   try {
+    console.log("[Hierarchy API] Starting product hierarchy fetch");
     await connectDB();
+    console.log("[Hierarchy API] Database connected");
 
     const products = await Product.find({}, "category subcategory sofaType")
       .lean()
       .exec();
 
+    console.log(`[Hierarchy API] Found ${products.length} products`);
     const hierarchy = new Map<string, Map<string, Set<string>>>();
 
     products.forEach((product) => {
@@ -78,11 +81,12 @@ export async function GET() {
       return categoryItem;
     });
 
+    console.log(`[Hierarchy API] Returning ${formatted.length} categories`);
     return NextResponse.json(formatted, { status: 200 });
   } catch (error) {
-    console.error("Error building product hierarchy:", error);
+    console.error("[Hierarchy API] Error building product hierarchy:", error);
     return NextResponse.json(
-      { message: "Failed to load product hierarchy" },
+      { message: "Failed to load product hierarchy", error: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     );
   }
