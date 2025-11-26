@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import { AnimatePresence, motion, useAnimation, Variants } from "framer-motion";
 import Navigation from "../global/navigation";
 import Hero from "@/components/global/hero";
 import IntroVideo from "@/components/global/intro-video";
@@ -62,7 +62,7 @@ const Index = () => {
   const [addingToWishlist, setAddingToWishlist] = useState(false);
   const [addedToWishlist, setAddedToWishlist] = useState(false);
 
-  const fadeInUp = {
+  const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
