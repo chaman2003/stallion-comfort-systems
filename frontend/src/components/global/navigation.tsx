@@ -286,7 +286,7 @@ const Navigation = () => {
   // Render mobile submenu recursively
   const renderMobileSubmenu = (items: SubItem[], level = 0) => {
     if (!items) return null;
-    return items.map((item, index) => (
+    return Array.isArray(items) ? items.map((item, index) => (
       <div key={`${item.name}-${index}`} className={`ml-${level + 4}`}>
         <Link
           href={item.path}
@@ -405,7 +405,7 @@ const Navigation = () => {
                           variants={dropdownVariants}
                         >
                           <div className="bg-white shadow-lg rounded-b-md py-2 border border-gray-200/50">
-                            {item.items.map((subItem, subIdx) => (
+                            {Array.isArray(item.items) && item.items.map((subItem, subIdx) => (
                               <div
                                 key={`dropdown-item-${subIdx}`}
                                 className={`relative ${subIdx !== item.items.length - 1
@@ -441,7 +441,7 @@ const Navigation = () => {
                                         variants={dropdownVariants}
                                       >
                                         <div className="bg-white shadow-lg rounded-md py-2 border border-gray-200/50">
-                                          {subItem.submenu.map(
+                                          {Array.isArray(subItem.submenu) && subItem.submenu.map(
                                             (thirdItem: SubItem, thirdIdx: number) => (
                                               <div
                                                 key={`submenu-item-${thirdIdx}`}
@@ -488,7 +488,7 @@ const Navigation = () => {
                                                         }
                                                       >
                                                         <div className="bg-white shadow-lg rounded-md py-2 border border-gray-200/50">
-                                                          {thirdItem.submenu?.map(
+                                                          {Array.isArray(thirdItem.submenu) && thirdItem.submenu.map(
                                                             (
                                                               fourthItem: SubItem,
                                                               fourthIdx: number
@@ -682,7 +682,7 @@ const Navigation = () => {
                       "Beds",
                       "Wardrobes",
                       "Coffee Tables",
-                    ].map((term) => (
+                    {Array.isArray(["Sofas","Dining Sets","Beds","Wardrobes","Coffee Tables"]) && ["Sofas","Dining Sets","Beds","Wardrobes","Coffee Tables"].map((term) => (
                       <Link
                         key={term}
                         href={`/search?q=${term.toLowerCase()}`}
@@ -731,7 +731,7 @@ const Navigation = () => {
               </div>
 
               <div className="p-4">
-                {navItems.map((item, idx) => (
+                {Array.isArray(navItems) && navItems.map((item, idx) => (
                   <div key={`mobile-nav-${idx}`} className="mb-6">
                     {item.path ? (
                       <Link
@@ -749,7 +749,7 @@ const Navigation = () => {
 
                     {item.items && (
                       <div className="mt-2">
-                        {item.items.map((subItem, subIdx) => (
+                        {Array.isArray(item.items) && item.items.map((subItem, subIdx) => (
                           <div key={`mobile-subnav-${subIdx}`}>
                             {!subItem.submenu ? (
                               <Link
