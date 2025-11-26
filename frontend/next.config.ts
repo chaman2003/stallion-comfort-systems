@@ -8,14 +8,23 @@ const nextConfig: NextConfig = {
   // Performance optimizations for Next.js 15
   compress: true,
   productionBrowserSourceMaps: false,
-  
+
   // Faster package imports
   experimental: {
     optimizePackageImports: ["@/components", "@/lib", "framer-motion"],
   },
-  
+
   // Disable static generation for faster dev server startup
   staticPageGenerationTimeout: 30,
+
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:5000/api/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

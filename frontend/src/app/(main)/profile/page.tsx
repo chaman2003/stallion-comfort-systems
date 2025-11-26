@@ -10,7 +10,6 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import {
-  User,
   Mail,
   Phone,
   MapPin,
@@ -270,180 +269,180 @@ export default function ProfilePage() {
         transition={{ duration: 0.5, delay: 0.1 }}
       >
         <Card className="mb-8">
-        <CardHeader>
-          <div className="flex items-start justify-between">
-            <div className="flex items-center gap-6">
-              <div className="relative">
-                {user.profilePhoto ? (
-                  <img
-                    src={user.profilePhoto}
-                    alt={user.name}
-                    className="h-24 w-24 rounded-full object-cover border-4 border-blue-500"
-                  />
-                ) : (
-                  <div className="h-24 w-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold border-4 border-blue-500">
-                    {user.name.charAt(0).toUpperCase()}
-                  </div>
-                )}
-                {isEditMode && (
-                  <label className="absolute bottom-0 right-0 bg-gold hover:bg-gold/90 text-white p-2 rounded-full cursor-pointer transition-colors">
-                    <Upload className="h-4 w-4" />
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handlePhotoUpload}
-                      disabled={isUploadingPhoto}
-                      className="hidden"
+          <CardHeader>
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-6">
+                <div className="relative">
+                  {user.profilePhoto ? (
+                    <img
+                      src={user.profilePhoto}
+                      alt={user.name}
+                      className="h-24 w-24 rounded-full object-cover border-4 border-blue-500"
                     />
-                  </label>
+                  ) : (
+                    <div className="h-24 w-24 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold border-4 border-blue-500">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  {isEditMode && (
+                    <label className="absolute bottom-0 right-0 bg-gold hover:bg-gold/90 text-white p-2 rounded-full cursor-pointer transition-colors">
+                      <Upload className="h-4 w-4" />
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handlePhotoUpload}
+                        disabled={isUploadingPhoto}
+                        className="hidden"
+                      />
+                    </label>
+                  )}
+                </div>
+                <div>
+                  <CardTitle className="text-2xl">{user.name}</CardTitle>
+                  <CardDescription className="text-base">
+                    <Badge variant="outline" className="mt-1">
+                      {user.role === 'admin' ? 'Administrator' : 'Customer'}
+                    </Badge>
+                  </CardDescription>
+                </div>
+              </div>
+              <Button
+                onClick={() => setIsEditMode(!isEditMode)}
+                variant={isEditMode ? 'outline' : 'default'}
+                className="gap-2"
+              >
+                {isEditMode ? (
+                  <>
+                    <X className="h-4 w-4" />
+                    Cancel
+                  </>
+                ) : (
+                  <>
+                    <Edit className="h-4 w-4" />
+                    Edit Profile
+                  </>
                 )}
-              </div>
-              <div>
-                <CardTitle className="text-2xl">{user.name}</CardTitle>
-                <CardDescription className="text-base">
-                  <Badge variant="outline" className="mt-1">
-                    {user.role === 'admin' ? 'Administrator' : 'Customer'}
-                  </Badge>
-                </CardDescription>
-              </div>
+              </Button>
             </div>
-            <Button
-              onClick={() => setIsEditMode(!isEditMode)}
-              variant={isEditMode ? 'outline' : 'default'}
-              className="gap-2"
-            >
-              {isEditMode ? (
-                <>
-                  <X className="h-4 w-4" />
-                  Cancel
-                </>
-              ) : (
-                <>
-                  <Edit className="h-4 w-4" />
-                  Edit Profile
-                </>
-              )}
-            </Button>
-          </div>
-        </CardHeader>
-        <CardContent>
-          {isEditMode ? (
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Name</label>
-                  <Input
-                    value={editFormData.name || ''}
-                    onChange={(e) => handleEditChange('name', e.target.value)}
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Email</label>
-                  <Input
-                    value={editFormData.email || ''}
-                    disabled
-                    className="mt-1 bg-gray-100"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Phone</label>
-                  <Input
-                    value={editFormData.phone || ''}
-                    onChange={(e) => handleEditChange('phone', e.target.value)}
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Country</label>
-                  <Input
-                    value={editFormData.country || ''}
-                    onChange={(e) => handleEditChange('country', e.target.value)}
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Address</label>
-                  <Input
-                    value={editFormData.address || ''}
-                    onChange={(e) => handleEditChange('address', e.target.value)}
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">City</label>
-                  <Input
-                    value={editFormData.city || ''}
-                    onChange={(e) => handleEditChange('city', e.target.value)}
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">State</label>
-                  <Input
-                    value={editFormData.state || ''}
-                    onChange={(e) => handleEditChange('state', e.target.value)}
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Zip Code</label>
-                  <Input
-                    value={editFormData.zipCode || ''}
-                    onChange={(e) => handleEditChange('zipCode', e.target.value)}
-                    className="mt-1"
-                  />
-                </div>
-              </div>
-              <div className="flex gap-3 mt-6">
-                <Button onClick={handleSaveProfile} className="gap-2">
-                  <Save className="h-4 w-4" />
-                  Save Changes
-                </Button>
-                <Button onClick={() => setIsEditMode(false)} variant="outline">
-                  Cancel
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          </CardHeader>
+          <CardContent>
+            {isEditMode ? (
               <div className="space-y-4">
-                <div className="flex items-center gap-3 text-gray-700">
-                  <Mail className="h-5 w-5 text-blue-600" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-gray-500">Email</p>
-                    <p className="font-medium">{user.email}</p>
+                    <label className="text-sm font-medium text-gray-700">Name</label>
+                    <Input
+                      value={editFormData.name || ''}
+                      onChange={(e) => handleEditChange('name', e.target.value)}
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">Email</label>
+                    <Input
+                      value={editFormData.email || ''}
+                      disabled
+                      className="mt-1 bg-gray-100"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">Phone</label>
+                    <Input
+                      value={editFormData.phone || ''}
+                      onChange={(e) => handleEditChange('phone', e.target.value)}
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">Country</label>
+                    <Input
+                      value={editFormData.country || ''}
+                      onChange={(e) => handleEditChange('country', e.target.value)}
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">Address</label>
+                    <Input
+                      value={editFormData.address || ''}
+                      onChange={(e) => handleEditChange('address', e.target.value)}
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">City</label>
+                    <Input
+                      value={editFormData.city || ''}
+                      onChange={(e) => handleEditChange('city', e.target.value)}
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">State</label>
+                    <Input
+                      value={editFormData.state || ''}
+                      onChange={(e) => handleEditChange('state', e.target.value)}
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-700">Zip Code</label>
+                    <Input
+                      value={editFormData.zipCode || ''}
+                      onChange={(e) => handleEditChange('zipCode', e.target.value)}
+                      className="mt-1"
+                    />
                   </div>
                 </div>
-                {user.phone && (
+                <div className="flex gap-3 mt-6">
+                  <Button onClick={handleSaveProfile} className="gap-2">
+                    <Save className="h-4 w-4" />
+                    Save Changes
+                  </Button>
+                  <Button onClick={() => setIsEditMode(false)} variant="outline">
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
                   <div className="flex items-center gap-3 text-gray-700">
-                    <Phone className="h-5 w-5 text-green-600" />
+                    <Mail className="h-5 w-5 text-blue-600" />
                     <div>
-                      <p className="text-sm text-gray-500">Phone</p>
-                      <p className="font-medium">{user.phone}</p>
+                      <p className="text-sm text-gray-500">Email</p>
+                      <p className="font-medium">{user.email}</p>
                     </div>
                   </div>
-                )}
-              </div>
-              <div className="space-y-4">
-                {(user.address || user.city || user.state || user.zipCode || user.country) && (
-                  <div className="flex items-start gap-3 text-gray-700">
-                    <MapPin className="h-5 w-5 text-red-600 mt-0.5" />
-                    <div>
-                      <p className="text-sm text-gray-500">Address</p>
-                      <p className="font-medium">
-                        {[user.address, user.city, user.state, user.zipCode, user.country]
-                          .filter(Boolean)
-                          .join(', ')}
-                      </p>
+                  {user.phone && (
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <Phone className="h-5 w-5 text-green-600" />
+                      <div>
+                        <p className="text-sm text-gray-500">Phone</p>
+                        <p className="font-medium">{user.phone}</p>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
+                <div className="space-y-4">
+                  {(user.address || user.city || user.state || user.zipCode || user.country) && (
+                    <div className="flex items-start gap-3 text-gray-700">
+                      <MapPin className="h-5 w-5 text-red-600 mt-0.5" />
+                      <div>
+                        <p className="text-sm text-gray-500">Address</p>
+                        <p className="font-medium">
+                          {[user.address, user.city, user.state, user.zipCode, user.country]
+                            .filter(Boolean)
+                            .join(', ')}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+            )}
+          </CardContent>
+        </Card>
       </motion.div>
 
       {/* Your Quotations Section */}
@@ -452,259 +451,259 @@ export default function ProfilePage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-2xl flex items-center gap-2">
-                <FileText className="h-6 w-6" />
-                Your Quotes
-              </CardTitle>
-              <CardDescription className="text-base mt-1">
-                View and manage all your quotation requests
-              </CardDescription>
-            </div>
-            <Button onClick={() => router.push('/request-quote')}>
-              Request New Quote
-            </Button>
-          </div>
-        </CardHeader>
-        <CardContent>
-          {quotes.length === 0 ? (
-            <div className="text-center py-12">
-              <FileText className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No quotes yet</h3>
-              <p className="text-gray-500 mb-6">Start by requesting your first quotation</p>
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  <FileText className="h-6 w-6" />
+                  Your Quotes
+                </CardTitle>
+                <CardDescription className="text-base mt-1">
+                  View and manage all your quotation requests
+                </CardDescription>
+              </div>
               <Button onClick={() => router.push('/request-quote')}>
-                Request Your First Quote
+                Request New Quote
               </Button>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              {quotes.map((quote) => (
-                <Card
-                  key={quote._id}
-                  className="hover:shadow-lg transition-shadow cursor-pointer border-2 hover:border-blue-500/50"
-                  onClick={() => openQuoteDetails(quote)}
-                >
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle className="text-lg font-semibold">
-                          {quote.quoteId}
-                        </CardTitle>
-                        <CardDescription className="flex items-center gap-2 mt-1">
-                          <Calendar className="h-3 w-3" />
-                          {formatDate(quote.createdAt)}
-                        </CardDescription>
-                      </div>
-                      <div className="flex flex-col items-end gap-2">
-                        <Badge
-                          variant="outline"
-                          className={`${getStatusColor(quote.status)} flex items-center gap-1`}
-                        >
-                          {getStatusIcon(quote.status)}
-                          <span className="capitalize">{quote.status}</span>
-                        </Badge>
-                        {quote.urgency && (
-                          <Badge variant="outline" className={getUrgencyColor(quote.urgency)}>
-                            {quote.urgency.toUpperCase()}
+          </CardHeader>
+          <CardContent>
+            {quotes.length === 0 ? (
+              <div className="text-center py-12">
+                <FileText className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">No quotes yet</h3>
+                <p className="text-gray-500 mb-6">Start by requesting your first quotation</p>
+                <Button onClick={() => router.push('/request-quote')}>
+                  Request Your First Quote
+                </Button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {quotes.map((quote) => (
+                  <Card
+                    key={quote._id}
+                    className="hover:shadow-lg transition-shadow cursor-pointer border-2 hover:border-blue-500/50"
+                    onClick={() => openQuoteDetails(quote)}
+                  >
+                    <CardHeader className="pb-3">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <CardTitle className="text-lg font-semibold">
+                            {quote.quoteId}
+                          </CardTitle>
+                          <CardDescription className="flex items-center gap-2 mt-1">
+                            <Calendar className="h-3 w-3" />
+                            {formatDate(quote.createdAt)}
+                          </CardDescription>
+                        </div>
+                        <div className="flex flex-col items-end gap-2">
+                          <Badge
+                            variant="outline"
+                            className={`${getStatusColor(quote.status)} flex items-center gap-1`}
+                          >
+                            {getStatusIcon(quote.status)}
+                            <span className="capitalize">{quote.status}</span>
                           </Badge>
+                          {quote.urgency && (
+                            <Badge variant="outline" className={getUrgencyColor(quote.urgency)}>
+                              {quote.urgency.toUpperCase()}
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <div>
+                        <p className="text-sm text-gray-600 line-clamp-2">{quote.description}</p>
+                      </div>
+                      <Separator />
+                      <div className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-2 text-gray-600">
+                          <Package className="h-4 w-4" />
+                          <span>{quote.items.length} item{quote.items.length !== 1 ? 's' : ''}</span>
+                        </div>
+                        {quote.totalEstimatedPrice && (
+                          <div className="font-semibold text-gray-900">
+                            ₹{quote.totalEstimatedPrice.toLocaleString()}
+                          </div>
                         )}
                       </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div>
-                      <p className="text-sm text-gray-600 line-clamp-2">{quote.description}</p>
-                    </div>
-                    <Separator />
-                    <div className="flex items-center justify-between text-sm">
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Package className="h-4 w-4" />
-                        <span>{quote.items.length} item{quote.items.length !== 1 ? 's' : ''}</span>
-                      </div>
-                      {quote.totalEstimatedPrice && (
-                        <div className="font-semibold text-gray-900">
-                          ₹{quote.totalEstimatedPrice.toLocaleString()}
+                      {quote.sellerResponse?.message && (
+                        <div className="flex items-center gap-2 text-sm text-blue-600 bg-blue-50 px-3 py-2 rounded">
+                          <MessageSquare className="h-4 w-4" />
+                          <span>Seller has responded</span>
                         </div>
                       )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Quote Details Dialog */}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent className="max-w-4xl max-h-[90vh]">
+            <DialogHeader>
+              <DialogTitle className="text-2xl flex items-center gap-2">
+                <FileText className="h-6 w-6" />
+                {selectedQuote?.quoteId}
+              </DialogTitle>
+              <DialogDescription>
+                Quote details and seller response
+              </DialogDescription>
+            </DialogHeader>
+            {selectedQuote && (
+              <ScrollArea className="max-h-[70vh] pr-4">
+                <div className="space-y-6">
+                  {/* Status and Date */}
+                  <div className="flex items-center justify-between">
+                    <Badge
+                      variant="outline"
+                      className={`${getStatusColor(selectedQuote.status)} flex items-center gap-1 px-4 py-2 text-base`}
+                    >
+                      {getStatusIcon(selectedQuote.status)}
+                      <span className="capitalize">{selectedQuote.status}</span>
+                    </Badge>
+                    <div className="text-sm text-gray-600 flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
+                      Requested on {formatDate(selectedQuote.createdAt)}
                     </div>
-                    {quote.sellerResponse?.message && (
-                      <div className="flex items-center gap-2 text-sm text-blue-600 bg-blue-50 px-3 py-2 rounded">
-                        <MessageSquare className="h-4 w-4" />
-                        <span>Seller has responded</span>
+                  </div>
+
+                  <Separator />
+
+                  {/* Quote Description */}
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2">Description</h3>
+                    <p className="text-gray-700">{selectedQuote.description}</p>
+                  </div>
+
+                  {/* Items List */}
+                  <div>
+                    <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                      <Package className="h-5 w-5" />
+                      Requested Items ({selectedQuote.items.length})
+                    </h3>
+                    <div className="space-y-3">
+                      {selectedQuote.items.map((item, index) => (
+                        <Card key={index} className="bg-gray-50">
+                          <CardContent className="pt-4">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <h4 className="font-semibold">{item.productName}</h4>
+                                <p className="text-sm text-gray-600 mt-1">
+                                  Quantity: <span className="font-medium">{item.quantity}</span>
+                                </p>
+                                {item.specifications && (
+                                  <p className="text-sm text-gray-600 mt-1">
+                                    Specifications: {item.specifications}
+                                  </p>
+                                )}
+                                {item.notes && (
+                                  <p className="text-sm text-gray-500 mt-1 italic">
+                                    Notes: {item.notes}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Additional Details */}
+                  <div className="grid grid-cols-2 gap-4">
+                    {selectedQuote.urgency && (
+                      <div>
+                        <h4 className="text-sm font-semibold text-gray-600 mb-1">Urgency</h4>
+                        <Badge variant="outline" className={getUrgencyColor(selectedQuote.urgency)}>
+                          {selectedQuote.urgency.toUpperCase()}
+                        </Badge>
                       </div>
                     )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Quote Details Dialog */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh]">
-          <DialogHeader>
-            <DialogTitle className="text-2xl flex items-center gap-2">
-              <FileText className="h-6 w-6" />
-              {selectedQuote?.quoteId}
-            </DialogTitle>
-            <DialogDescription>
-              Quote details and seller response
-            </DialogDescription>
-          </DialogHeader>
-          {selectedQuote && (
-            <ScrollArea className="max-h-[70vh] pr-4">
-              <div className="space-y-6">
-                {/* Status and Date */}
-                <div className="flex items-center justify-between">
-                  <Badge
-                    variant="outline"
-                    className={`${getStatusColor(selectedQuote.status)} flex items-center gap-1 px-4 py-2 text-base`}
-                  >
-                    {getStatusIcon(selectedQuote.status)}
-                    <span className="capitalize">{selectedQuote.status}</span>
-                  </Badge>
-                  <div className="text-sm text-gray-600 flex items-center gap-2">
-                    <Calendar className="h-4 w-4" />
-                    Requested on {formatDate(selectedQuote.createdAt)}
+                    {selectedQuote.preferredContactMethod && (
+                      <div>
+                        <h4 className="text-sm font-semibold text-gray-600 mb-1">Preferred Contact</h4>
+                        <p className="text-gray-900 capitalize">{selectedQuote.preferredContactMethod}</p>
+                      </div>
+                    )}
+                    {selectedQuote.totalEstimatedPrice && (
+                      <div>
+                        <h4 className="text-sm font-semibold text-gray-600 mb-1">Estimated Price</h4>
+                        <p className="text-lg font-bold text-gray-900">
+                          ₹{selectedQuote.totalEstimatedPrice.toLocaleString()}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                </div>
 
-                <Separator />
+                  <Separator />
 
-                {/* Quote Description */}
-                <div>
-                  <h3 className="font-semibold text-lg mb-2">Description</h3>
-                  <p className="text-gray-700">{selectedQuote.description}</p>
-                </div>
-
-                {/* Items List */}
-                <div>
-                  <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                    <Package className="h-5 w-5" />
-                    Requested Items ({selectedQuote.items.length})
-                  </h3>
-                  <div className="space-y-3">
-                    {selectedQuote.items.map((item, index) => (
-                      <Card key={index} className="bg-gray-50">
-                        <CardContent className="pt-4">
-                          <div className="flex items-start justify-between">
-                            <div className="flex-1">
-                              <h4 className="font-semibold">{item.productName}</h4>
-                              <p className="text-sm text-gray-600 mt-1">
-                                Quantity: <span className="font-medium">{item.quantity}</span>
+                  {/* Seller Response Section */}
+                  <div>
+                    <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
+                      <MessageSquare className="h-5 w-5" />
+                      Seller Response
+                    </h3>
+                    {selectedQuote.sellerResponse?.message ? (
+                      <Card className="bg-blue-50 border-blue-200">
+                        <CardContent className="pt-4 space-y-3">
+                          <div>
+                            <p className="text-gray-700">{selectedQuote.sellerResponse.message}</p>
+                          </div>
+                          {selectedQuote.sellerResponse.quotedPrice && (
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-600 mb-1">Quoted Price</h4>
+                              <p className="text-xl font-bold text-blue-700">
+                                ₹{selectedQuote.sellerResponse.quotedPrice.toLocaleString()}
                               </p>
-                              {item.specifications && (
-                                <p className="text-sm text-gray-600 mt-1">
-                                  Specifications: {item.specifications}
-                                </p>
-                              )}
-                              {item.notes && (
-                                <p className="text-sm text-gray-500 mt-1 italic">
-                                  Notes: {item.notes}
-                                </p>
-                              )}
+                            </div>
+                          )}
+                          {selectedQuote.sellerResponse.estimatedDelivery && (
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-600 mb-1">Estimated Delivery</h4>
+                              <p className="text-gray-900">{selectedQuote.sellerResponse.estimatedDelivery}</p>
+                            </div>
+                          )}
+                          {selectedQuote.sellerResponse.terms && (
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-600 mb-1">Terms & Conditions</h4>
+                              <p className="text-sm text-gray-700">{selectedQuote.sellerResponse.terms}</p>
+                            </div>
+                          )}
+                          {selectedQuote.sellerResponse.respondedAt && (
+                            <div className="text-xs text-gray-500 flex items-center gap-2 pt-2 border-t border-blue-200">
+                              <Clock className="h-3 w-3" />
+                              Responded on {formatDate(selectedQuote.sellerResponse.respondedAt.toString())}
+                            </div>
+                          )}
+                        </CardContent>
+                      </Card>
+                    ) : (
+                      <Card className="bg-yellow-50 border-yellow-200">
+                        <CardContent className="pt-4">
+                          <div className="flex items-center gap-3 text-yellow-800">
+                            <AlertCircle className="h-5 w-5" />
+                            <div>
+                              <p className="font-semibold">Awaiting Seller Response</p>
+                              <p className="text-sm text-yellow-700 mt-1">
+                                The seller has not responded yet. You will be notified once they provide a quote.
+                              </p>
                             </div>
                           </div>
                         </CardContent>
                       </Card>
-                    ))}
+                    )}
                   </div>
                 </div>
-
-                {/* Additional Details */}
-                <div className="grid grid-cols-2 gap-4">
-                  {selectedQuote.urgency && (
-                    <div>
-                      <h4 className="text-sm font-semibold text-gray-600 mb-1">Urgency</h4>
-                      <Badge variant="outline" className={getUrgencyColor(selectedQuote.urgency)}>
-                        {selectedQuote.urgency.toUpperCase()}
-                      </Badge>
-                    </div>
-                  )}
-                  {selectedQuote.preferredContactMethod && (
-                    <div>
-                      <h4 className="text-sm font-semibold text-gray-600 mb-1">Preferred Contact</h4>
-                      <p className="text-gray-900 capitalize">{selectedQuote.preferredContactMethod}</p>
-                    </div>
-                  )}
-                  {selectedQuote.totalEstimatedPrice && (
-                    <div>
-                      <h4 className="text-sm font-semibold text-gray-600 mb-1">Estimated Price</h4>
-                      <p className="text-lg font-bold text-gray-900">
-                        ₹{selectedQuote.totalEstimatedPrice.toLocaleString()}
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                <Separator />
-
-                {/* Seller Response Section */}
-                <div>
-                  <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                    <MessageSquare className="h-5 w-5" />
-                    Seller Response
-                  </h3>
-                  {selectedQuote.sellerResponse?.message ? (
-                    <Card className="bg-blue-50 border-blue-200">
-                      <CardContent className="pt-4 space-y-3">
-                        <div>
-                          <p className="text-gray-700">{selectedQuote.sellerResponse.message}</p>
-                        </div>
-                        {selectedQuote.sellerResponse.quotedPrice && (
-                          <div>
-                            <h4 className="text-sm font-semibold text-gray-600 mb-1">Quoted Price</h4>
-                            <p className="text-xl font-bold text-blue-700">
-                              ₹{selectedQuote.sellerResponse.quotedPrice.toLocaleString()}
-                            </p>
-                          </div>
-                        )}
-                        {selectedQuote.sellerResponse.estimatedDelivery && (
-                          <div>
-                            <h4 className="text-sm font-semibold text-gray-600 mb-1">Estimated Delivery</h4>
-                            <p className="text-gray-900">{selectedQuote.sellerResponse.estimatedDelivery}</p>
-                          </div>
-                        )}
-                        {selectedQuote.sellerResponse.terms && (
-                          <div>
-                            <h4 className="text-sm font-semibold text-gray-600 mb-1">Terms & Conditions</h4>
-                            <p className="text-sm text-gray-700">{selectedQuote.sellerResponse.terms}</p>
-                          </div>
-                        )}
-                        {selectedQuote.sellerResponse.respondedAt && (
-                          <div className="text-xs text-gray-500 flex items-center gap-2 pt-2 border-t border-blue-200">
-                            <Clock className="h-3 w-3" />
-                            Responded on {formatDate(selectedQuote.sellerResponse.respondedAt.toString())}
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  ) : (
-                    <Card className="bg-yellow-50 border-yellow-200">
-                      <CardContent className="pt-4">
-                        <div className="flex items-center gap-3 text-yellow-800">
-                          <AlertCircle className="h-5 w-5" />
-                          <div>
-                            <p className="font-semibold">Awaiting Seller Response</p>
-                            <p className="text-sm text-yellow-700 mt-1">
-                              The seller has not responded yet. You will be notified once they provide a quote.
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )}
-                </div>
-              </div>
-            </ScrollArea>
-          )}
-        </DialogContent>
-      </Dialog>
+              </ScrollArea>
+            )}
+          </DialogContent>
+        </Dialog>
       </motion.div>
     </motion.div>
   );

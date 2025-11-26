@@ -94,22 +94,26 @@ const Login = () => {
 
       // Store user data in localStorage
       localStorage.setItem('user', JSON.stringify(data.user));
-      localStorage.setItem('token', 'user-token-' + data.user._id);
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+      }
 
       toast("Login Successful", {
         description: "Welcome back!",
       });
 
       router.push("/");
-    } catch (error) {
+    } catch (error: unknown) {
       console.error("Login error:", error);
 
+      const errorMessage = error instanceof Error ? error.message : "Invalid email or password. Please try again.";
+
       setErrors({
-        general: error instanceof Error ? error.message : "Invalid email or password. Please try again.",
+        general: errorMessage,
       });
 
       toast("Login Failed", {
-        description: error instanceof Error ? error.message : "Invalid email or password. Please try again.",
+        description: errorMessage,
       });
     } finally {
       setLoading(false);

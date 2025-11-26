@@ -93,12 +93,12 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       // Fetch products
-      const productsRes = await axios.get("/products");
+      const productsRes = await axios.get("/api/products");
       setProducts(productsRes.data);
       setFilteredProducts(productsRes.data);
 
       // Fetch chat responses
-      const responsesRes = await axios.get("/chat-responses");
+      const responsesRes = await axios.get("/api/chat-responses");
       setChatResponses(responsesRes.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -267,7 +267,7 @@ const AdminDashboard = () => {
       if (currentProduct._id) {
         // Update existing product
         const response = await axios.put(
-          `/products/${currentProduct._id}`,
+          `/api/products/${currentProduct._id}`,
           productData
         );
         savedProduct = response.data;
@@ -284,7 +284,7 @@ const AdminDashboard = () => {
         });
       } else {
         // Create new product
-        const response = await axios.post("/products", productData);
+        const response = await axios.post("/api/products", productData);
         savedProduct = response.data;
 
         // Update local state
@@ -343,7 +343,7 @@ const AdminDashboard = () => {
       if (currentResponse._id) {
         // Update existing response
         const response = await axios.put(
-          `/chat-responses/${currentResponse._id}`,
+          `/api/chat-responses/${currentResponse._id}`,
           responseData
         );
         savedResponse = response.data;
@@ -360,7 +360,7 @@ const AdminDashboard = () => {
         });
       } else {
         // Create new response
-        const response = await axios.post("/chat-responses", responseData);
+        const response = await axios.post("/api/chat-responses", responseData);
         savedResponse = response.data;
 
         // Update local state
@@ -408,7 +408,7 @@ const AdminDashboard = () => {
 
     setLoading(true);
     try {
-      await axios.delete(`/products/${id}`);
+      await axios.delete(`/api/products/${id}`);
 
       // Update local state
       setProducts(products.filter((product) => product._id !== id));
@@ -437,7 +437,7 @@ const AdminDashboard = () => {
 
     setLoading(true);
     try {
-      await axios.delete(`/chat-responses/${id}`);
+      await axios.delete(`/api/chat-responses/${id}`);
 
       // Update local state
       setChatResponses(chatResponses.filter((response) => response._id !== id));
@@ -492,7 +492,7 @@ const AdminDashboard = () => {
           </Button>
         </div>
 
-  <Tabs defaultValue="products">
+        <Tabs defaultValue="products">
           <TabsList className="mb-6">
             <TabsTrigger value="products">Manage Products</TabsTrigger>
             <TabsTrigger value="responses">Chat Responses</TabsTrigger>
@@ -585,16 +585,16 @@ const AdminDashboard = () => {
                       {activeCategory === "all"
                         ? "All Products"
                         : activeSubcategory === ""
-                        ? categories.find((c) => c.value === activeCategory)
+                          ? categories.find((c) => c.value === activeCategory)
                             ?.label + " Products"
-                        : activeSubcategory === "sofas" && activeSofaType === ""
-                        ? "All Sofas"
-                        : activeSubcategory === "sofas" && activeSofaType
-                        ? sofaTypes.find((t) => t.value === activeSofaType)
-                            ?.label
-                        : subcategories[activeCategory]?.find(
-                            (s) => s.value === activeSubcategory
-                          )?.label}
+                          : activeSubcategory === "sofas" && activeSofaType === ""
+                            ? "All Sofas"
+                            : activeSubcategory === "sofas" && activeSofaType
+                              ? sofaTypes.find((t) => t.value === activeSofaType)
+                                ?.label
+                              : subcategories[activeCategory]?.find(
+                                (s) => s.value === activeSubcategory
+                              )?.label}
                     </CardTitle>
                     <CardDescription>
                       Manage your furniture products

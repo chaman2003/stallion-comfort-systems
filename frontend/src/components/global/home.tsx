@@ -325,12 +325,12 @@ const Index = () => {
                       animate={{
                         scale:
                           hoveredProduct === index ||
-                          autoFeaturedIndex === index
+                            autoFeaturedIndex === index
                             ? 1.08
                             : 1,
                         filter:
                           hoveredProduct === index ||
-                          autoFeaturedIndex === index
+                            autoFeaturedIndex === index
                             ? "brightness(0.9)"
                             : "brightness(1)",
                       }}
@@ -343,7 +343,7 @@ const Index = () => {
                       animate={{
                         opacity:
                           hoveredProduct === index ||
-                          autoFeaturedIndex === index
+                            autoFeaturedIndex === index
                             ? 0.7
                             : 0,
                       }}
@@ -357,12 +357,12 @@ const Index = () => {
                         animate={{
                           opacity:
                             hoveredProduct === index ||
-                            autoFeaturedIndex === index
+                              autoFeaturedIndex === index
                               ? 1
                               : 0,
                           x:
                             hoveredProduct === index ||
-                            autoFeaturedIndex === index
+                              autoFeaturedIndex === index
                               ? 0
                               : -20,
                         }}
@@ -378,7 +378,7 @@ const Index = () => {
                       animate={{
                         opacity:
                           hoveredProduct === index ||
-                          autoFeaturedIndex === index
+                            autoFeaturedIndex === index
                             ? 1
                             : 0,
                       }}
@@ -389,7 +389,7 @@ const Index = () => {
                         animate={{
                           scale:
                             hoveredProduct === index ||
-                            autoFeaturedIndex === index
+                              autoFeaturedIndex === index
                               ? 1
                               : 0.8,
                         }}
@@ -412,12 +412,12 @@ const Index = () => {
                       animate={{
                         opacity:
                           hoveredProduct === index ||
-                          autoFeaturedIndex === index
+                            autoFeaturedIndex === index
                             ? 1
                             : 0,
                         y:
                           hoveredProduct === index ||
-                          autoFeaturedIndex === index
+                            autoFeaturedIndex === index
                             ? 0
                             : 20,
                       }}
@@ -444,17 +444,17 @@ const Index = () => {
                       animate={{
                         opacity:
                           hoveredProduct === index ||
-                          autoFeaturedIndex === index
+                            autoFeaturedIndex === index
                             ? 1
                             : 0.5,
                         scale:
                           hoveredProduct === index ||
-                          autoFeaturedIndex === index
+                            autoFeaturedIndex === index
                             ? 1
                             : 0.8,
                         x:
                           hoveredProduct === index ||
-                          autoFeaturedIndex === index
+                            autoFeaturedIndex === index
                             ? 0
                             : -10,
                       }}
@@ -471,7 +471,7 @@ const Index = () => {
         </div>
       </section>
 
-  <SignatureHighlights />
+      <SignatureHighlights />
 
       {/* Gallery Section */}
       <section ref={galleryRef} className="py-16 md:py-24 bg-zinc-50 relative">
@@ -550,17 +550,17 @@ const Index = () => {
                         animate={{
                           opacity:
                             hoveredGalleryItem === index ||
-                            autoHoverIndex === index
+                              autoHoverIndex === index
                               ? 1
                               : 0,
                           y:
                             hoveredGalleryItem === index ||
-                            autoHoverIndex === index
+                              autoHoverIndex === index
                               ? 0
                               : 20,
                           scale:
                             hoveredGalleryItem === index ||
-                            autoHoverIndex === index
+                              autoHoverIndex === index
                               ? 1.05
                               : 1,
                         }}
@@ -576,12 +576,12 @@ const Index = () => {
                       animate={{
                         opacity:
                           hoveredGalleryItem === index ||
-                          autoHoverIndex === index
+                            autoHoverIndex === index
                             ? 1
                             : 0,
                         y:
                           hoveredGalleryItem === index ||
-                          autoHoverIndex === index
+                            autoHoverIndex === index
                             ? 0
                             : 20,
                       }}
@@ -598,7 +598,7 @@ const Index = () => {
                       animate={{
                         y:
                           hoveredGalleryItem === index ||
-                          autoHoverIndex === index
+                            autoHoverIndex === index
                             ? -8
                             : 0,
                       }}
@@ -614,20 +614,20 @@ const Index = () => {
                         animate={{
                           scale:
                             hoveredGalleryItem === index ||
-                            autoHoverIndex === index
+                              autoHoverIndex === index
                               ? 1.1
                               : 1,
                           textShadow:
                             hoveredGalleryItem === index ||
-                            autoHoverIndex === index
+                              autoHoverIndex === index
                               ? "0 0 15px rgba(212, 175, 55, 0.8), 0 0 25px rgba(0,0,0,0.5)"
                               : "0px 1px 3px rgba(0,0,0,0.8), 0px 2px 4px rgba(0,0,0,0.7)",
                           WebkitTextStroke:
                             hoveredGalleryItem === index ||
-                            autoHoverIndex === index
+                              autoHoverIndex === index
                               ? "1px rgba(212, 175, 55, 0.4)"
                               : "0.5px rgba(0,0,0,0.3)",
-                        } as any}
+                        }}
                         transition={{ duration: 0.3 }}
                       >
                         {image.alt}
@@ -637,12 +637,12 @@ const Index = () => {
                         animate={{
                           scaleX:
                             hoveredGalleryItem === index ||
-                            autoHoverIndex === index
+                              autoHoverIndex === index
                               ? 1
                               : 0.3,
                           opacity:
                             hoveredGalleryItem === index ||
-                            autoHoverIndex === index
+                              autoHoverIndex === index
                               ? 1
                               : 0.5,
                         }}
@@ -715,7 +715,7 @@ const Index = () => {
                       animate={{
                         opacity:
                           hoveredCollection === idx ||
-                          autoCollectionIndex === idx
+                            autoCollectionIndex === idx
                             ? 0.85
                             : 0.2,
                       }}
@@ -728,7 +728,7 @@ const Index = () => {
                       animate={{
                         scale:
                           hoveredCollection === idx ||
-                          autoCollectionIndex === idx
+                            autoCollectionIndex === idx
                             ? 1.1
                             : 1,
                       }}
@@ -739,7 +739,7 @@ const Index = () => {
                       animate={{
                         opacity:
                           hoveredCollection === idx ||
-                          autoCollectionIndex === idx
+                            autoCollectionIndex === idx
                             ? 1
                             : 0,
                       }}
@@ -1151,7 +1151,7 @@ const Index = () => {
         </div>
       </section>
 
-  <TestimonialsCarousel />
+      <TestimonialsCarousel />
 
       {/* Call to Action with floating animation */}
       <section className="py-20 bg-gray-50 overflow-hidden relative">

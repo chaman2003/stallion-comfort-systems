@@ -338,11 +338,10 @@ const Navigation = () => {
       <nav
         id="main-navigation"
         ref={navRef}
-        className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${
-          scrolled || !isHomePage
+        className={`fixed w-full z-50 transition-all duration-500 ease-in-out ${scrolled || !isHomePage
             ? "bg-white/95 backdrop-blur-md shadow-lg"
             : "bg-transparent"
-        }`}
+          }`}
       >
         <div className="w-full mx-auto px-3">
           <div className="flex items-center justify-between h-17 md:h-21">
@@ -391,25 +390,22 @@ const Navigation = () => {
                     {item.path ? (
                       <Link
                         href={item.path}
-                        className={`font-medium tracking-wide transition-all duration-300 py-2 px-2 flex items-center ${
-                          scrolled || !isHomePage
+                        className={`font-medium tracking-wide transition-all duration-300 py-2 px-2 flex items-center ${scrolled || !isHomePage
                             ? "text-[#001F3F]"
                             : "text-white"
-                        } hover:bg-white/10 rounded-md`}
+                          } hover:bg-white/10 rounded-md`}
                       >
                         {item.title}
                       </Link>
                     ) : (
                       <div
-                        className={`font-medium tracking-wide transition-all duration-300 py-2 px-2 flex items-center cursor-pointer ${
-                          scrolled || !isHomePage
+                        className={`font-medium tracking-wide transition-all duration-300 py-2 px-2 flex items-center cursor-pointer ${scrolled || !isHomePage
                             ? "text-[#001F3F]"
                             : "text-white"
-                        } ${
-                          openDropdown === index
+                          } ${openDropdown === index
                             ? "bg-white/10 backdrop-blur-sm rounded-t-md border-b-2 border-white/40"
                             : "hover:bg-white/5 rounded-md"
-                        }`}
+                          }`}
                       >
                         {item.title}
                         <ChevronDown className="ml-1 h-4 w-4" />
@@ -430,11 +426,10 @@ const Navigation = () => {
                             {item.items.map((subItem, subIdx) => (
                               <div
                                 key={`dropdown-item-${subIdx}`}
-                                className={`relative ${
-                                  subIdx !== item.items.length - 1
+                                className={`relative ${subIdx !== item.items.length - 1
                                     ? "border-b border-gray-200"
                                     : ""
-                                }`}
+                                  }`}
                                 onMouseEnter={() => handleSubmenuHover(subIdx)}
                                 onMouseLeave={handleMenuLeave}
                               >
@@ -468,12 +463,11 @@ const Navigation = () => {
                                             (thirdItem, thirdIdx) => (
                                               <div
                                                 key={`submenu-item-${thirdIdx}`}
-                                                className={`relative ${
-                                                  thirdIdx !==
-                                                  subItem.submenu.length - 1
+                                                className={`relative ${thirdIdx !==
+                                                    subItem.submenu.length - 1
                                                     ? "border-b border-gray-200"
                                                     : ""
-                                                }`}
+                                                  }`}
                                                 onMouseEnter={() =>
                                                   handleThirdLevelHover(
                                                     thirdIdx
@@ -501,7 +495,7 @@ const Navigation = () => {
                                                 <AnimatePresence>
                                                   {thirdItem.submenu &&
                                                     openThirdLevel ===
-                                                      thirdIdx && (
+                                                    thirdIdx && (
                                                       <motion.div
                                                         className="absolute left-full top-0 min-w-[200px] ml-0"
                                                         initial="hidden"
@@ -519,15 +513,14 @@ const Navigation = () => {
                                                             ) => (
                                                               <div
                                                                 key={`third-level-${fourthIdx}`}
-                                                                className={`${
-                                                                  fourthIdx !==
-                                                                  thirdItem
-                                                                    .submenu
-                                                                    .length -
+                                                                className={`${fourthIdx !==
+                                                                    thirdItem
+                                                                      .submenu
+                                                                      .length -
                                                                     1
                                                                     ? "border-b border-gray-200"
                                                                     : ""
-                                                                }`}
+                                                                  }`}
                                                               >
                                                                 <Link
                                                                   href={
@@ -569,11 +562,10 @@ const Navigation = () => {
               {/* Search icon */}
               <div
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className={`h-9 w-9 flex items-center justify-center rounded-full cursor-pointer transition-all ${
-                  scrolled || !isHomePage || isSearchOpen
+                className={`h-9 w-9 flex items-center justify-center rounded-full cursor-pointer transition-all ${scrolled || !isHomePage || isSearchOpen
                     ? "text-[#001F3F] hover:bg-gray-100"
                     : "text-white hover:bg-white/10"
-                }`}
+                  }`}
               >
                 {isSearchOpen ? <X size={20} /> : <Search size={20} />}
               </div>
@@ -581,11 +573,10 @@ const Navigation = () => {
               {/* Shopping Cart icon */}
               <Link href="/cart">
                 <div
-                  className={`h-9 w-9 flex items-center justify-center rounded-full cursor-pointer transition-all ${
-                    scrolled || !isHomePage
+                  className={`h-9 w-9 flex items-center justify-center rounded-full cursor-pointer transition-all ${scrolled || !isHomePage
                       ? "text-[#001F3F] hover:bg-gray-100"
                       : "text-white hover:bg-white/10"
-                  }`}
+                    }`}
                 >
                   <ShoppingCart size={20} />
                 </div>
@@ -626,6 +617,16 @@ const Navigation = () => {
                         >
                           Quotations
                         </Link>
+                        {/* Admin Link */}
+                        {JSON.parse(localStorage.getItem("user") || "{}").role === "admin" && (
+                          <Link
+                            href="/admin"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            onClick={() => setIsUserDropdownOpen(false)}
+                          >
+                            Admin Dashboard
+                          </Link>
+                        )}
                         <button
                           onClick={() => {
                             handleLogout();
@@ -644,11 +645,10 @@ const Navigation = () => {
                 <Link href="/login">
                   <Button
                     variant="ghost"
-                    className={`rounded-full px-4 ${
-                      scrolled || !isHomePage
+                    className={`rounded-full px-4 ${scrolled || !isHomePage
                         ? "text-[#001F3F] hover:bg-gray-100"
                         : "text-white hover:bg-white/10"
-                    }`}
+                      }`}
                   >
                     <User size={18} className="mr-2" />
                     Login
@@ -781,9 +781,8 @@ const Navigation = () => {
                                   transform: isOpen
                                     ? "translateX(0)"
                                     : "translateX(20px)",
-                                  transition: `all 500ms ${
-                                    subIdx * 50 + 100
-                                  }ms`,
+                                  transition: `all 500ms ${subIdx * 50 + 100
+                                    }ms`,
                                 }}
                               >
                                 {subItem.name}

@@ -42,3 +42,7 @@ prompt.txt
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#etc
+errors.txt
+prompt.txt
